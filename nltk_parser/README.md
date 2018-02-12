@@ -1,6 +1,5 @@
 class NLTK_parser:
----- NLTK_parser.fdist:
-	統計字詞出現的頻率
+<code>NLTK_parser.fdist</code>:	統計字詞出現的頻率
 ---- NLTK_parser.stopworddic:
 	儲存stopword與一些不列入統計的詞
 ---- __init__(self):

@@ -1,0 +1,9 @@
+At least 11 million devices in 52 countries are linked via the internet using the Java-based Niagara Framework, enabling everything from plant managers viewing video of plant operations to superintendents of skyscrapers controlling air conditioners and elevators to nurses monitoring medical devices, according to the newspaper.
+
+But security is a significant concern of the Niagara Framework, a fact that even the company acknowledged. ：We・re not going to say Niagara is secure. We try to soften it and say we・re trying to make it as secure as possible；, Tridium founder John Sublett told the newspaper.
+
+Working with the Post reporters, independent researchers Billy Rios and Terry McCorkle discovered security gaps in Niagara that could enable hackers to download and decrypt user names and passwords.
+
+The exploit used by the researchers is called a directory traversal attack. With some alterations to the Niagara Framework・s web address, Rios was able to order the framework to perform certain tasks. One of them was to electronically hand over a ：configuration file；, which contained user names, passwords, and other sensitive material.
+
+Sublett told the newspaper that Tridium intends to change the location of the configuration file to make it harder for hackers to find. The company is also working on changing the framework・s default security settings ：so it・s not as easy to make a mistake.； 

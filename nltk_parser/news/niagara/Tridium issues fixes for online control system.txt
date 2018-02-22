@@ -1,0 +1,24 @@
+A Richmond technology firm has closed security holes in a popular system that enables corporations, government agencies and others to control millions of devices over the World Wide Web, the Department of Homeland Security said in an advisory Wednesday.
+
+Tridium Inc. issued a ¡§patch¡¨ for Niagara Framework, a software system used by more than 300,000 organizations in 52 countries to remotely control or monitor medical devices, elevators, furnaces, video cameras, security systems and a wide array of other equipment.
+
+Wednesday¡¦s advisory came one month after homeland security officials warned that Niagara was open to attack from hackers who exploited a well-known vulnerability. The department¡¦s July 13 alert followed a Washington Post story about Niagara and holes discovered by two cybersecurity researchers contacted as part of the reporting.
+
+
+The researchers, Billy Rios and Terry McCorkle, determined that hackers could, among other things, easily breach the system and download user names and passwords. They alerted DHS to their findings.
+
+The disclosure of the vulnerabilities came amid public debate about the security of computer systems that increasingly control buildings, manufacturing, power grids and other parts of the nation¡¦s critical infrastructure that are linked to cyberspace.
+
+It also set off a scramble by Niagara users and resellers, scores of whom joined a new online group to exchange ideas about making the platform more secure.
+
+In Wednesday¡¦s advisory, official with DHS¡¦s Industrial Control Systems Cyber Emergency Response Team said Tridium issued fixes for four different vulnerabilities. Those gaps would let a hacker gain access to restricted files, including ¡§authentication credentials,¡¨ by sending a ¡§specially crafted request to the Web server,¡¨ the advisory said.
+
+¡§These vulnerabilities can be exploited remotely,¡¨ the team said. ¡§An attacker with a medium skill could exploit these vulnerabilities.¡¨
+
+Tridium issued its own advisory in recent days, urging customers and users to ¡§apply this patch¡¨ to current Niagara systems or to upgrade older systems and then make the security improvements.
+
+¡§Tridium understands the importance of providing a securable software framework to its customers. Whenever critical security issues are discovered, Tridium is committed to taking the appropriate steps to resolve them quickly.¡¨
+
+A spokesman for Tridium¡¦s parent, Honeywell, said the updates were sent to equipment makers that use Niagara, integrators and others ¡§strongly urging them to reach out to their customer base with the security update details.¡¨
+
+¡§Ensuring the highest levels of security of the Niagara AX Framework is a top priority for Tridium, and the work we¡¦re doing with organizations like ICS-Cert and our customers shows how seriously we take these issues,¡¨ Honeywell spokesman Bruce Eric Anderson said.

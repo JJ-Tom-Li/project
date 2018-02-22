@@ -1,0 +1,31 @@
+Infrastructure software that controls hundreds of thousands of building control systems is vulnerable to electronic attack, warned DHS¡¦ industrial control systems emergency response team.
+
+In the wake of press reports that showed Tridium¡¦s Niagara software that is used to control building infrastructure, including heating, lighting, security, automation and other systems, could be hacked and manipulated by outside sources, DHS Industrial Control System Cyber Emergency Response Team (ICS-CERT) security group issued a warning about the software on July 13.
+
+The software¡¦s maker, Tridium, has said Niagara has been installed more than 300,000 times globally.
+
+¡§Independent security researchers Billy Rios and Terry McCorkle notified ICS-CERT of a directory traversal and weak credential storage vulnerability with proof-of-concept (PoC) exploit code for Tridium Niagara AX Framework software,¡¨ said ICS CERT. ¡§According to their research, the vulnerabilities are exploitable by downloading and decrypting the file containing the user credentials from the server.¡¨ The capability allows unauthorized users to decrypt passwords and user names, allowing electronic intruders access to building infrastructure operations.
+
+ICS-CERT said it has been working with the two researchers on fixing the problem, but added that Tridium has developed patches for the problem. The work, it said, had delayed its initial warning so those patches could be prepared. Initial press reports of the problem, said ICS CERT, forced its hand and the release of the warning on July 13.
+
+¡§Tridium has released a security alert with instructions on how to implement interim mitigations,¡¨ it said. ¡§Tridium has stated that they are testing a software update that will resolve these vulnerabilities.¡¨
+
+In its alert, Tridium recommends:
+
+    Disable the ¡§guest¡¨ and ¡§demo¡¨ user accounts if enabled.
+    Use the ¡§Lock Out¡¨ feature to lock out accounts for excessive invalid login attempts.
+    Use strong passwords.
+    Change default credentials
+    Limit user access to the file system following the instructions in the Niagara AX Framework Software Security Alert below
+    Ensure that control systems are not directly Internet facing.
+
+DHS also said infrastructure owners and operators that are using Niagara can also perform a comprehensive control system cybersecurity assessment using the DHS Control Systems Security Program (CSSP) Cyber Security Evaluation Tool (CSET). CSET, said ICS CERT, is a free, downloadable, stand alone software tool that is designed to assist owners and operators to:
+
+    determine their current security posture,
+    identify where security improvements can/should be made,
+    map out the existing component/network configuration, and
+    output a basic cybersecurity plan.
+
+ICS-CERT also recommended users also take broader defensive measures to cut the risks of exploitation of the vulnerabilities by putting control system networks and devices behind firewalls and isolating them from the business network.
+
+The security team also recommended using Virtual Private Networks (VPNs) for applications that require remote access. VPNs use separate protocols for access points, isolating and securing them.

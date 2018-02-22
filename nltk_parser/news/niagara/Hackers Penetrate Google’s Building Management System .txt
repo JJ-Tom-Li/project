@@ -1,0 +1,22 @@
+
+
+With more sophisticated controls and software overlays, buildings are getting a lot smarter. Unless there's a hacker out there smarter than your building, in which case your building could become a bumbling, hypnotized fool -- or even dangerous.
+
+Google found that out (the easy way) when two cybersecurity experts hacked into its Wharf 7 office in Sydney, Australia through a building management system controlled by Tridium, a company owned by Honeywell.
+
+According to an account of the hack published yesterday by Billy Rios and Terry McCorkle of the security firm Cylance, the two were able to penetrate Google's facility through an unpatched version of Tridium's Niagara AX, a building management platform that was exposed in February by Rios and McCorkle as having serious security holes.
+
+In this most recent hack, Rios and McCorkle found a login page for "GoogleWharf7" in a database they compiled of Tridium systems connected to the internet. A simple web search showed that Wharf 7 is Google's 10,700-square-foot "warehouse-style" office building in Sydney. Because Google was running an outdated version of Tridium Niagara, the hackers were able to access the config.bog file containing usernames and passwords. By using a tool to decode the administrative password, Rios and McCorkle entered Google's building management system and were able to see the floor and roofing plan, piping systems, alarms, and equipment schedules.
+
+
+Along with getting access to all this information, the hackers said they could have overridden the system to control the building automation system and gain access to any other systems on the same network: "We did not do this¡K but we could have!" they wrote.
+
+According to an account of the hack in Wired, Google said the Tridium system only controlled the building's HVAC equipment and not electricity meters, security systems or other pieces of equipment. Although this security penetration may not have wrought a system-wide crisis at Google, the message to other companies using Tridium and other internet-based building control systems was clear.
+
+"If you have a corporate campus or a modern building of any sort¡Kyou¡¦re likely running similar systems someplace on your network. We¡¦ve already discovered over 25,000 of these systems facing the internet. [...O]ne down, 24,999 to go. If Google can fall victim to an ICS attack, anyone can," wrote Rios and McCorkle.
+
+As it turns out, some of the most prominent companies and agencies in the world use Tridium to manage facilities, including ABB, Boeing, Philips, Whirlpool, the British Navy and even a U.S. government building in Chicago that includes the FBI and the IRS.
+
+The importance of hacks like this one this cannot be understated for the smart buildings sector. As more buildings get connected to the internet and are remotely controlled through cloud-based software, security issues are only growing in importance. According to a report from Navigant Research, the global building energy management sector will grow from $1.9 billion in 2011 to $6 billion in 2020, bringing with it millions of new connection points to the web. 
+
+Tridium is also active in the M2M communications sector to connect smart devices. According to a report from the Carbon War Room, there will be 12.5 billion M2M connections worldwide by 2022, up from 1.3 billion today.

@@ -1,0 +1,43 @@
+The Department of Homeland Security, through its Industrial Control Systems Cyber Emergency Response Team (ICS-CERT), issued a warning last Friday about security vulnerabilities in the Tridium Niagara AX Framework, a popular software platform that integrates various control systems and devices and allows them to be managed over the Internet.
+
+The scary part? The security flaws were reported months ago, and permanent a fix has not yet been created.
+
+Niagara Security VulnerabilitiesWhile critical infrastructure operators such as utilities are the first to come to mind when ICS-CERT issues an alert, the Niagara framework is also used in building automation systems including environmental controls, security, lighting, energy, and fire and safety. Think large office buildings and facilities such as airports, hospitals, government buildings, Department of Defense deployments and more. So, Niagara¡¦s impact goes beyond what we typically think of in critical infrastructure such as SCADA systems and other industrial control systems, and extends into mainstream businesses.
+
+Tridium¡¦s website boasts the fact that over 318,000 instances of its Java-based Niagara Framework is operating around the world. Tridium is a wholly owned subsidiary of technology and manufacturing conglomerate Honeywell International.
+
+According to the Washington Post, the Niagara software is used to manage more than 110,000 devices and sensors at Singapore¡¦s Changi Airport.
+
+The ICS-CERT alert stems from vulnerabilities discovered by independent security researchers Billy Rios and Terry McCorkle, who reached out in order to notify them of the vulnerabilities within the Niagara Framework that puts many organizations at risk.
+
+The main vulnerability, they say, allows an attacker to conduct a directory traversal attack, a type of attack that enables one to retrieve information from the directory in an attempt to find hidden files that were inadvertently exposed to an application.
+
+In this case, the researchers say that using proof-of-concept (PoC) exploit code, they are able to download and decrypt a file containing user credentials from a server, a vulnerability type classified as ¡§weak credential storage¡¨. 
+
+While SQL injection attacks are common and responsible for so many breaches we see in the headlines today, directory traversal attacks seem to fly below the radar, but should be something security professionals should pay attention to. According to Imperva¡¦s 2011 Web Application Attack Report, directory traversal attacks accounted for 37% of the top four most prevalent Web attack types.  A September 2011 SecurityWeek column by Noa Bar-Yoseff notes that directory traversal attacks are commonly used for reconnaissance. ¡§When the hacker extracts enough information about the targeted victim, it can proceed to carry out an additional attack,¡¨ she wrote.
+
+What¡¦s disturbing, is that while Rios and McCorkle reported the vulnerability months ago. A Washington Post article states that Tridium was made aware of the vulnerability ¡§almost a year ago, when a Niagara customer that uses the software to manage Pentagon facilities turned up issues in an audit¡¨.
+
+¡§Probably the most disappointing part of the whole ordeal is Tridium¡¦s eagerness to blame the customer,¡¨ Rios noted in a blog post. ¡§We¡¦ve seen this from other ICS vendors as well. It should never be the customer¡¦s responsibility to have to compensate for poor design. Many ICS vendors expect customers to ensure their product is implemented securely, yet provide zero (or extremely vague) guidance on how to do so.¡¨
+
+¡§ICS-CERT has been in coordination with Mr. Rios, Mr. McCorkle and Tridium. Original attempts to coordinate vulnerability information were unsuccessful and ICS-CERT, in coordination with the researchers, was planning a release of the vulnerability information,¡¨ the ICS-CERT alert explained.
+
+¡§However, recent communications from Tridium indicated they were working on a solution, resulting in the delayed release of this Alert so that mitigations/patches could be prepared,¡¨ the alert added.
+
+¡§Sadly, we can honestly say that the security of iTunes is more robust than most ICS software,¡¨ Rios added in his blog post.
+
+"Management access to any system, in particular a critical infrastructure control system, must be controlled,¡¨ Jody Brazil, President and CTO of FireMon told SecurityWeek. ¡§Exposing management access to the Internet for convenience exposes the system and associated network to too much risk.¡¨
+
+¡§When a vulnerability, disclosed or undisclosed, is discovered it will only be a matter of time before it is exploited,¡¨ he said.
+
+Tridium has issued a security alert with steps users can take to reduce risk in the meantime while they test an update that will fix the vulnerabilities.
+
+As part of the temporary mitigations, Tridium recommends disabling the ¡§guest¡¨ and ¡§demo¡¨ user accounts if enabled, using the ¡§Lock Out¡¨ feature to lock out accounts after excessive invalid login attempts, and changing default credentials and using strong passwords. They also suggest limiting user access to the file system following the instructions in the Niagara AX Framework, and that operators make sure that control systems are not directly Internet facing.
+
+¡§Very simple steps as recommended the Department of Homeland Security, such as effective network access control enforcement, can drastically reduce the risk exposure to these systems," Brazil added.
+
+¡§Tridium will be providing a software update in the next 30 days that will automate the process for users and harden those settings against inadvertent user changes,¡¨ a company spokesperson told SecurityWeek just moments before publishing this piece. ¡§We also continue to work very closely with representatives of ICS-Cert and have spoken directly with Billy Rios and Terry McCorkle who provided valuable information to help us make our systems more secure.¡¨
+
+The full security alert from Tridium with additional (temporary) mitigation information is available here. 
+
+Rios said that he and McCorkle plan to release some technical details on what they¡¦ve found in the near future. 

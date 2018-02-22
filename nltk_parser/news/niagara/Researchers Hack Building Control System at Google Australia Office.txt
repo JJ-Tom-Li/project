@@ -1,0 +1,59 @@
+Tens of thousands of control systems connected to the internet, dozens of hardcoded passwords that can't be changed, untold numbers of backdoors embedded in systems by vendors that hackers can use to remotely control them ¡V these are just a sampling of the problems uncovered by researchers in the last three years.
+
+But statistics like these come into sharp focus when a company like Google is in the crosshairs.
+
+Two security researchers recently found that they could easily hack the building management system for the corporate giant's Wharf 7 office overlooking the water in the Pyrmont section of Sydney, Australia.
+
+Google Australia uses a building management system that's built on the Tridium Niagara AX platform, a platform that has been shown to have serious security vulnerabilities. Although Tridium has released a patch for the system, Google's control system was not patched, which allowed the researchers to obtain the administrative password for it ("anyonesguess") and access control panels.
+
+The panels showed buttons marked "active overrides," "active alarms," "alarm console," "LAN Diagram," "schedule," and a button marked "BMS key" for Building Management System key.
+
+There was also a button marked "AfterHours Button" with a hammer on it.
+
+The researchers did not test the buttons or disrupt the system, which was running off of a DSL line, but reported the issue to Google.
+
+"We didn¡¦t want to exercise any of the management functionality on the device itself. It's pretty fragile, and we don¡¦t want to take that thing down," said Billy Rios, a researcher with security firm Cylance, who worked on the project with colleague Terry McCorkle.
+
+Among the data they accessed was a control panel showing blueprints of the floor and roof plans, as well as a clear view of water pipes snaked throughout the building and notations indicating the temperature of water in the pipes and the location of a kitchen leak.
+
+On top of all of this was the accessibility they got due to the unpatched vulnerabilities.
+
+"From that point we could have actually installed a rootkit," said McCorkle, who first uncovered the Google system online. "We could have taken over the operating system and accessed any other control systems that are on the same network as that one. We didn¡¦t do that because that wasn¡¦t the intent.... But that would be the normal path if an attacker was actually looking to do that."
+
+A Google spokesman confirmed the breach and said the company has since disconnected the control system from the internet. Despite the "alarm" buttons on the control panel and the blueprint showing the water pipes, he said the system the researchers accessed can control only heating and air conditioning in the building. A report about the incident produced by staff in Australia, which Google did not show Wired, indicated that the system could not be used to control electricity, elevators, door access or any other building automation, the spokesman said.
+
+Asked if there were any other control systems on the same network, he said the system was on a dedicated line, and that it was not connected to the corporate network or any other automation systems.
+
+"We¡¦re grateful when researchers report their findings to us," the spokesman told Wired. "We took appropriate action to resolve this issue."
+
+Google's building management system appears to have been set up by a third-party integrator company. Rios and McCorkle say the Google case is a classic example of what many companies face when integrators set up systems on their behalf and connect them to the internet to remotely manage them or configure them insecurely and fail to install patches for the control systems.
+
+The two Cylance researchers have found numerous vulnerabilities in the Tridium Niagara AX system and other industrial control systems in the last two years. In January, they demonstrated a zero-day attack on the system that exploited a remote, pre-authenticated vulnerability that, combined with a privilege-escalation bug they found, could give them root on the system's platform.
+
+The vulnerability allows them to remotely access the system's config.bog file, which holds all of the system's configuration data as well as usernames and passwords for logging in to operator accounts and controlling the systems managed by them. It also allows them to overwrite files on the device to get them root access on what Tridium calls its SoftJACE system ¡V basically a Windows system with a Java virtual machine and the Tridium client software running on it.
+
+Using the unpatched vulnerability in the control system for Google's office building, the researchers downloaded the config file containing several usernames and passwords for Google Australia employees to manage the system. Although the passwords were encoded, Rios and McCorkle wrote a custom tool to decode them and obtain the administrator's password, "anyonesguess." They did not overwrite the device files, however, or try to gain root on it. Instead, they reported the problem to Google.
+
+Tridium's Niagara Framework is the platform for millions of control systems worldwide.
+
+It's used widely by the military, hospitals and others to control electronic door locks, lighting systems, elevators, electricity and boiler systems, video surveillance cameras, alarms and other critical building facilities.
+
+But in a Washington Post story last year, the company said it believed attacks on its systems were unlikely because the systems were obscure and hackers didn't traditionally target such systems.
+
+Such systems normally would be protected if they were not connected to the internet or to other systems that are connected to the internet, but Rios and McCorkle have found more than 25,000 Tridium systems connected to the internet.
+
+Tridium's own product documentation for the system touts the fact that it's ideal for remote management over the internet.
+
+McCorkle and colleagues found the Google system on a spreadsheet they created that lists all of the Tridium-based control systems they've found on the internet using the Shodan search engine, which maps devices like these that are connected to the internet.
+
+One of the systems on the list had Google in the name. Curious, the researchers went online to explore what it might be and found themselves looking at the login page for the control system for "GoogleWharf7." A Google search identified this as Google's office in Australia.
+
+Tridium's website provides information on some of its customers through a number of published case studies. These indicate that the systems are used at a government office complex in Chicago that houses a number of federal agencies, including the FBI, the Drug Enforcement Agency, the U.S. Marshals Service, the IRS and the Passport Office.
+
+The systems are also used in a British Army training facility, at Boeing's manufacturing facilities in Renton, Washington, at the Changi airport in Singapore, the Four Points Sheraton hotel in Sydney, Australia, among other facilities around the world.
+
+Even though Tridium has released a patch for the vulnerability that the researchers exploited on the Google system, McCorkle says that a good percentage of the 25,000 other Tridium systems they've found connected to the internet are likely unpatched and just as vulnerable as Google's system.
+
+"Even though Tridium fixed [the vulnerability], it doesn't mean their customers are implementing [the patch]" he says. A large control system vendor once told him that fewer than one-tenth of one percent of customers downloaded patches when the company provided them.
+
+"The contractors and integrators are deploying these things in this insecure fashion," Rios says. "It¡¦s a perfect storm. The end user doesn't realize these things are in their networks and that their buildings are exposed to the internet."

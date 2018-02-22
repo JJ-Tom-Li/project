@@ -1,0 +1,25 @@
+The U.S. Department of Homeland Security (DHS) has issued an alert warning of vulnerabilities in a software technology called the Niagara AX Framework, used to manage millions of devices over the Internet.
+
+The alert, from the DHS' Industrial Control System Cyber Emergency Response Team (ICS-CERT) security group, is addressed to organizations that are using Niagara software to remotely control via the Internet industrial control systems, heating, lighting and security equipment, building automation devices and other systems.
+
+Niagara's maker, Tridium, claims it has installed more than 300,000 copies of its software at customer locations worldwide. The company's customers include Boeing, ABB, Callaway and Whirlpool.
+
+DHS said in its alert (PDF document) that Niagara contains a directory transversal flaw and a weak credential storage vulnerability that basically allows attackers to access and download files containing usernames and passwords for all users with access to a Niagara server within an organization.
+
+The two security researchers who discovered the flaws have released proof-of-concept code showing how the vulnerabilities can be exploited, the DHS noted in its alert. "According to their research, the vulnerabilities are exploitable by downloading and decrypting the file containing the user credentials from the server," the DHS noted.
+
+The alert advised organizations using the software to immediately disable "guest" and "demo" user accounts on their Niagara AX servers. It also encouraged them to use the software's "lock out" feature to lock out accounts after multiple failed login attempts.
+
+The DHS also urged Niagara users to change default password credentials, and limit user access to the password file system. The alert called on owners of industrial control systems who are using Niagara to disconnect their control systems networks from the business networks to prevent them from being directly accessible via the Internet.
+
+"If remote access is required, employ secure methods, such as Virtual Private Networks (VPNs), recognizing that VPN is only as secure as the connected devices," the alert said.
+
+The advice appeared to suggest the sort of basic precautions that companies should be taking already.
+
+Tridium did not immediately respond to a request for comment. However, an alert issued by the company echoed many of the comments in the DHS alert.
+
+In its alert, Tridium stressed the importance of companies limiting user permissions especially when it comes to the Niagara AX's the file system. "If a user has access to the entire file system, they have access to the entire station configuration," the company warned.
+
+"Specifically, the config.bog file, located in the station's root directory, can be a security risk.," and security should be configured to ensure strict role-based access control to the file system, the company noted.
+
+The DHS alert was issued on Friday, two days after the Washington Post detailed the vulnerabilities in Niagara in an investigative piece. The story was based on input from Billy Rios and Terry McCorkle, the two security researchers who discovered the flaws in Niagara and reported them to the DHS. 

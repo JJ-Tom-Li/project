@@ -1,0 +1,48 @@
+ This advisory is a follow-up to ¡§ICS-ALERT-12-195-01-Tridium Niagara Directory Traversal and Weak Credential Storage Vulnerability¡¨ that was published July 13, 2012, on the ICS-CERT Web page.
+
+Independent security researchers Billy Rios and Terry McCorkle have identified multiple vulnerabilities in the Tridium Niagara AX Framework software. The vulnerabilities include directory traversal, weak credential storage, session cookie weaknesses, and predictable session IDs, all of which can be exploited remotely. Although not all technical details have been released, these vulnerabilities have been made public.
+
+Tridium has issued a security alert, and has produced a patch that Mr. Rios and Mr. McCorkle have validated fixes these vulnerabilities.
+
+All known versions of the Tridium Niagara AX Framework software products are susceptible to these vulnerabilities.
+
+IMPACT
+
+Successfully exploiting these vulnerabilities will lead to data leakage and possible privilege escalation.
+
+Impact to individual organizations depends on many factors that are unique to each organization. ICS-CERT recommends that organizations evaluate the impact of these vulnerabilities based on their operational environment, architecture, and product implementation.
+
+BACKGROUND
+
+The Tridium Niagara AX software platform integrates different systems and devices, e.g., HVAC, building automation controls, telecommunications, security automation, machine¡Vto-machine (M2M), lighting control, maintenance repair operations (MRO), service bureaus, and facilities management, onto a single platform that can be managed and controlled over the Internet from a Web browser.
+
+Tridium sells its products and services through multiple distribution channels, which include OEMs/resellers, independent systems integrators, and energy service companies. According to Tridium, more than 300,000 instances of Niagara AX Framework are installed worldwide.
+
+VULNERABILITY OVERVIEW
+
+DIRECTORY TRAVERSAL: By default, the Tridium Niagara AX software is not configured to deny access to restricted parent directories. This vulnerability allows a successful attacker to access the file that stores all system usernames and passwords. An attacker could exploit this vulnerability by sending a specially crafted request to the Web server running on Port 80/TCP. CVE-2012-4027 has been assigned to this vulnerability. A CVSS v2 base score of 5.0 has been assigned; the CVSS vector string is ((AV:N/AC:M/Au:S/C:C/I:N/A:N).
+
+WEAK CREDENTIAL STORAGE: The system insecurely stores user authentication credentials, which are susceptible to interception and retrieval. User authentication credentials are stored in the Niagara station configuration file, config.bog, which is located in the root of the station folder. CVE-2012-4028 has been assigned to this vulnerability. A CVSS v2 base score of 6.5 has been assigned; the CVSS vector string is (AV:N/AC:H/Au:S/C:C/I:C/A:C).
+
+PLAINTEXT STORAGE IN A COOKIE: Usernames and passwords are stored using Base64 encoding in a cookie within the default authentication configuration. This significantly lowers the difficulty of exploitation by an attacker. The user must take additional steps to configure stronger authentication. CVE-2012-3025 has been assigned to this vulnerability. A CVSS v2 base score of 7.1 has been assigned; the CVSS vector string is (AV:N/AC:M/Au:N/C:N/I:C/A:N).
+
+PREDICTABLE SESSION IDS: The software generates a predictable session ID or key value, allowing an attacker to guess the session ID or key. CVE-2012-3024 has been assigned to this vulnerability. A CVSS v2 base score of 7.1 has been assigned; the CVSS vector string is (AV:N/AC:M/Au:N/C:N/I:C/A:N).
+
+EXPLOITABILITY: These vulnerabilities can be exploited remotely.
+
+EXISTENCE OF EXPLOIT: Exploits that target some of these vulnerabilities are publicly available, although not all technical details have been released.
+
+DIFFICULTY: An attacker with a medium skill could exploit these vulnerabilities.
+
+MITIGATION
+
+To mitigate the decoding of passwords listed in the config.bog file, Tridium recommends that security settings for file access be assigned only at the administrator level. Instructions for configuring these settings are included in the July 13 Security Alert
+m from Tridium.
+
+In addition, Tridium has issued a patch that prevents access to the config.bog file and backups of the file from network facing clients. The patch can be found at this URL:
+
+    https://www.niagara-central.com/ord?portal:/dev/wiki/Niagara_AX_3.5_and_3.6_Security_Patches
+
+The full ICS-CERT advisory can be found here:
+
+Source:  http://www.us-cert.gov/control_systems/pdf/ICSA-12-228-01.pdf

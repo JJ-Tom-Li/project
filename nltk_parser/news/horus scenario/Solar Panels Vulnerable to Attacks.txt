@@ -1,0 +1,30 @@
+Dutch researcher, Willem Westerhof, revealed that he found a great number of vulnerabilities in solar panels widely used across Europe.  Because the power grids in Europe are very intertwined, the exploitation of these vulnerabilities could allow an attacker to cause extremely large scale power outages.  Westerhof discovered these vulnerabilities while interning at Dutch security firm ITsec and wrote about them on a website named The Horus Scenario.  
+
+Named after an ancient Egyptian god related to the heavens or the sun, The Horus Scenario describes the event of a malicious hacker attacking solar panel systems.  These PV (Photovoltaic) installations are becoming a more popular source of energy used to help maintain the balance and stability of the power grid.  In his writings, Westerhof explains that the power grid has to maintain a constant balance between supply and demand of power.  Outages occur when demand outweighs the supply.  
+
+(SHA2017 Presentation: How an intern hacked the power grid)
+
+The benefit of using PV installations are they lower the demand by providing power locally to users and also increase supply by sending excess power to the grid.  The problem Westerhof talks about occurs because more of these PV systems are connected to the internet and thus susceptible to being remotely hacked into.  ¡§In Europe there is over 90 GW of PV power installed, an attacker capable of controlling the flow of power from a large number of these devices could therefore cause peaks or dips of several GigaWatts causing massive balancing issues which may lead to large scale power outages.¡¨
+
+PV inverters made by German company SMA, were the focus of Westerhof¡¦s analysis.  A black box study conducted by the researcher revealed a total of 21 vulnerabilities in these devices, ranging from 0.0 CVSS3.0 (Informational) to 9.0 CVSS3.0 (Critical).  These vulnerabilities allowed a remote attacker to compromise the system and carry out various commands, including the control of the flow of power.  14 of these vulnerabilities were given a CVE-ID:
+
+    CVE-2017-9851
+    CVE-2017-9852
+    CVE-2017-9853
+    CVE-2017-9854
+    CVE-2017-9855
+    CVE-2017-9856
+    CVE-2017-9857
+    CVE-2017-9858
+    CVE-2017-9859
+    CVE-2017-9860
+    CVE-2017-9861
+    CVE-2017-9862
+    CVE-2017-9863
+    CVE-2017-9864
+
+These vulnerabilities ranged from default, weak, and fixed passwords, information disclosure, cross-site request forgery (CSRF), sensitive data being exposed over network traffic, and even denial-of-service (DoS) capabilities.
+
+Westerhof ran a blackout simulator tool that calculated the estimated costs in damages if the Horus Scenario took place.  He wrote, ¡§In the worst case scenario, a 3 hour power outage across Europe, somewhere mid day on June is estimated to cause +/- 4.5 billion euros of damage. We should also consider the impact it may have on human lives, as previous outages are known to cause problems which sometimes end fatally.¡¨
+
+SMA contacted Security Week and informed them that they were working on the vulnerabilities, but felt that the researchers claims were exaggerated.  They say that only a few of their models are affected and are usually securely placed behind a firewall.  They also told Security Week that they are working with the National Cyber Security Centre (NCSC) on an official report.

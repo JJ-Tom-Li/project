@@ -1,0 +1,29 @@
+Vulnerabilities in solar panels could leave power grid open to hacker attacks, new research from a security engineer has revealed.
+
+Willem Westerhof has released details of 21 security flaws found in solar panels manufactured by German solar equipment company SMA that make them susceptible to a violation from outside sources. If this type of action is encountered, it could lead to global power outages. 
+
+Hackers Could Use Security Flaws in Solar Panel Equipment to Take Over Power Grid
+
+[Image Source: Pixabay]
+
+According to the new research, the flaws in the panels could lead to serious damage to solar power plants. This type of attack could have a longer lasting effect than just a temporary power outage.
+
+Solar power plants form an interconnected network that shares power across them in order to ensure demand is meant. For instance, when there is a surplus of power, it can be drawn upon by another plant that is in deficit. The management of the grids is based upon power usage expectations.  
+The Horus Scenario
+
+Germany depends on solar power for more than half of its total power use. If it were to be the target of a solar power attack the results could be devastating.  
+
+Westerhof writes about the possible attack scenario, ¡§A cyberattack in this grid at the right time could take out up to 50 percent of the nation¡¦s power supply. Almost instantly causing a very large (nation-wide, up to continental due to the intertwined power grids) power outage."
+
+There is no way to mitigate the risks of this type of event by storing power as the costs for storage are just too expensive.  
+
+Westerhof has dubbed this attack proposition, the 'Horus Scenario'. If executed in real life it could cost the targeted company and power stations millions of dollars and affect large proportions of the population.
+
+Westerhof claims he informed SMA about the vulnerabilities in their panels in December 2016. He took the alert a step further by addressing his concerns to industry regulators and government representatives in January 2017.  However, the engineer says the flaws have still not been addressed by the company nor government.
+Even low-level hackers could access power grids
+
+While Westerhof admits the flaws would require a highly sophisticated attack to do serious damage and cause a mass power outage. The types of flaws mean that even low-level hackers could access power grids. These types of attacks could include a denial of service attack (DOS) or in other cases, the use of default passwords leaving the panels open to hijacking. In some cases, just an internet connection is all that is required to be able to carry out the attack. The full details of just how these damaging attacks could be executed have not been released publicly.
+
+This is not the first reported case of possible hacking of solar panels. In August last year, Forbes reported that a US man had hacked his own solar panels exposing just how vulnerable the systems are. Fred Bret-Mounet, a California security expert, decided to test his own solar panel internet security. In doing so he discovered he actually could gain access to more than 1000 nearby homes with the same brand of solar panels.
+
+The responsibility must fall to manufacturers to ensure the safety of their products as solar technology is increasingly adopted. 

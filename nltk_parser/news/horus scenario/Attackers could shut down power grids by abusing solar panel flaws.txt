@@ -1,0 +1,32 @@
+An attacker could exploit vulnerabilities found in solar panel components to shut down large parts of a power grid.
+
+Security researcher Willem Westerhof discovered the flaws in his research surrounding something he calls the "Horus Scenario."
+
+Named after the Egyptian god of sky, the Horus Scenario refers to the possibility of a digital attack that could destabilize a power grid and cause service outages by targeting solar panel electricity systems, also known as photovoltaics (PV). Such an attack could have wide-reaching effects if it focused on interconnected power grids like those found in Europe.
+
+Westerhof explains that a bad actor could achieve the Horus Scenario by undermining balance, a key ingredient to power grid stability:
+
+    "The power grid needs to maintain a constant balance, between supply of power, and demand of power. If supply exceeds demand, or demand exceeds supply, outages can occur. In order to maintain stability all sorts of countermeasures exist to prevent outages due to peaks or dips in demand or supply. Under normal circumstances, these countermeasures ensure grid stability. There is however a limit to these countermeasures. A maximum peak or dip value in a specific period of time. If an attacker is capable to go beyond this maximum peak or dip value, outages will occur. [sic]"
+
+Theoretically, if an attacker manipulated the amount of PV power at an opportune time (say, around midday when the sun is shining the brightest), an attacker could take out a significant amount of a grid's power supply and cause an outage.
+Picture1 512x264
+
+Source: Horus Scenario
+
+So how could an attacker do something like this in a practical sense?
+
+To answer that question, Westerhof analyzed the PV inverters made by SMA, a market leading solar panel brand.
+
+Sma solar inverters
+
+The researcher found that the components, which convert direct current (DC) into alternating current (AC) on a PV plate and thereby help balance the grid, suffered from 17 vulnerabilities. 14 of those flaws received CVE IDs and CVSS scores ranging from 3.0 (Informational) to 9.0 (Critical).
+
+Together, the bugs provide attackers with a complete kill chain all the way from initial (REMOTE) execution to the Horus Scenario. Here's the worst that could happen if an attacker exploited the vulnerabilities:
+
+    "In the worst case scenario an attacker compromises enough devices and shuts down all these devices at the same time causing threshold values to be hit. Power grids start failing and due to the import and export of power cascading blackouts start occurring. Several other power sources (such as windmills) automatically shut down to protect the grid and amplify the attack further. Despite their best efforts power grid regulators are unable to stop the attack. It is only after the sun sets (or when there is no longer enough sunshine for the attack to take place) that the grid stabilizes again. Depending on the authorities way of dealing with this attack, this scenario may keep going for several days."
+
+An event such as the one described above that produced a 3-hour outage on a European power grid around midday in June would cause approximately 4.5 billion euros in damage, as the researcher found out using a blackout simulator tool.
+
+Westerhof reported the vulnerabilities to SMA in December 2016. He's been working with the company, power grid regulators, and government officials since then. SMA has agreed to fix the flaws, whereas actors from the energy sector and the government will discuss the findings at international conferences.
+
+Hopefully, companies like SMA will see this story and use it as an opportunity to create a bug bounty program. Such frameworks help to create lasting partnerships with security researchers, collaborative efforts which could subsequently improve the security of PV inverters and other devices and thereby reduce the attack surface of power grids everywhere.

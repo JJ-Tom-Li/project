@@ -1,0 +1,25 @@
+A security researcher has discovered several flaws in several solar panels, which could be used by hackers to shut down the power supply of a country.
+
+According to Dutch security engineer Willem Westerhof, 21 vulnerabilities have been found in photovoltaic panels sold by SMA. Of these, 14 vulnerabilities received CVE number.
+
+Westerhof detailed the problem in a website called ¡§Horus Scenario¡¨. The flaws affect the inverters in the solar panels. Westerhof reported the problem to SMA in December last year. While Westerhof and the company discussed his findings, after six months, the issue has not been resolved.
+
+¡§If this attack is ever truly executed in the wild, it is expected to cost billions of Euros and have a direct and severe impact on everybody's lives,¡¨ he said.
+
+The flaw could allow hackers to target the electrical grid by focusing on PV-installations. If successful, the attack could cause large scale outages, either nationwide or even continental. However, Westerhof does not go into much detail about the vulnerabilities or any concrete attack scenarios.
+
+However, in one vulnerability with a CVE number, a solar panel could be subject to a DoS attack by sending nonsense data or setting up a TELNET session to the database port of Sunny Explorer, crashing the application. Other flaws have default passwords used in products, or weak hashing algorithms.
+
+Westerhof said that by exploiting flaws such as these, a hacker could set off a chain of events that would shock the power grid.
+
+¡§A cyber-attack in this grid at the right time could take out up to 50 percent of the nation's power supply. Almost instantly causing a very large (nation-wide, up to continental due to the intertwined power grids) power outage,¡¨ he said.
+
+He added that it is simply too costly for power regulators to have that amount of power balancing on standby at all times. ¡§It may even be impossible, to have that kind of reserves trigger instantly as power plants take quite some time to increase and decrease their overall power output,¡¨ he added.
+
+Dave Palmer, director of technology at Darktrace, told SC Media UK that these particular discoveries should lead the manufacturer to improve its current products, as well as reconsider its future development and testing processes.
+
+¡§More pressingly, if solar producers are using these products, it will always have been unwise for them to be assumed secure and connected to the internet. In the unlikely event that this has occurred, solar producers should seek to isolate the products from the internet asap, and also review their physical access security to reduce the risk of a local attack from someone physically breaking into their facilities,¡¨ he said.
+
+Ori Bach, VP security strategy at TrapX, told SC Media UK that in the past few months we have seen attacks against fosil fuel and nuclear power plants, so attacks against alternative energy are more than likely. ¡§Keep in mind that each time one type of installation is hardened against attacks, attackers look for new types of devices to exploit,¡¨ he said.
+
+Power companies hit would face a double blow following yesterday's news, that not only will their service be hit, but they would also potentially face crippling fines for allowing it to happen.

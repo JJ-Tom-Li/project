@@ -1,0 +1,75 @@
+We are constantly being told that we・re living in an ever more interconnected world. The Internet of Things and big data are in the process of revolutionising the way we live and do business, but this unprecedented level of interconnectivity also raises numerous issues and concerns.
+
+ 
+
+ 
+
+Data privacy is paramount for many individuals and organisations. ．Zombie armies・ consisting of thousands of hijacked internet-enabled devices such as webcams, digital video recorders and even smart toasters have been used to launch huge distributed denial of service (DDoS) attacks and concerns have been raised over vulnerabilities in crucial infrastructure equipment.
+
+ 
+
+A Dutch cybersecurity researcher has claimed that hackers could exploit flaws present in solar panel equipment to disrupt national energy grids and cause potential blackouts.
+
+ 
+
+Cybersecurity researcher finds flaws in solar equipment
+
+ 
+
+Speaking at a security conference in the Netherlands, Willem Westerhof, a researcher at ITsec, claimed that he had found vulnerabilities in parts of the system known as inverters. These are pieces of equipment that convert the electricity created by solar panels, allowing it to be fed into the grid.
+
+ 
+
+He presented his hypothesis that this could lead to wide-scale attacks, saying: ：Photo Voltaic (PV) installations connected to the power grid and their accessories contain security vulnerabilities which allow hackers to influence the power grid in such a way that power outages can occur.；
+
+ 
+
+He said he had found 17 such vulnerabilities and had carried out a field test near Amsterdam on two inverters made by German solar energy manufacturer SMA. He said the tests showed that attackers could potentially take remote control of the equipment and change the flow of power. This, he said, could result in blackouts.
+
+ 
+
+The Horus scenario
+
+ 
+
+Mr Westerhof also launched a website detailing what he calls the Horus scenario.
+
+ 
+
+Named after an ancient Egyptian god, the scenario describes the possible impact if attackers were to seize control of a number of inverters and use them to cause these sorts of outages. The problems, he claims, could be on a national or even a continental scale.
+
+ 
+
+In a worst-case scenario, he estimated that a three hour power outage across Europe on a midday in June could cause around ａ4.5 billion of damage.
+
+ 
+
+：If this attack is ever truly executed in the wild, it is expected to cost billions of euros and have a direct and severe impact on everybody・s lives,； he wrote.
+
+ 
+
+The theory is that any national power grid needs to maintain a balance between supply and demand of power. Countermeasures are built into the grid to combat normal peaks and dips in demand or supply. If an attacker could cause peaks or demands to go beyond normal parameters, however, they could potentially cause an outage.
+
+ 
+
+According to the website, the interconnectedness of European power grids means that an attack on one could affect another nation・s grid.
+
+ 
+
+Manufacturer says vulnerabilities are limited
+
+ 
+
+Energy researcher Iain Staffell from Imperial College London told the BBC: "It's certainly a risk to electricity supply and could stress grid operations."
+
+ 
+
+He pointed out that a large number of inverters would have to be attacked simultaneously for any significant impact to occur.
+
+ 
+
+Mr Westerhof agreed, writing on his website: ：Hacking these devices becomes a problem when done at a large scale. Since more and more of these PV installations are being connected to the internet or the local network, to provide the user with certain functionalities, they can be targeted easily, and remotely, by hackers.；
+
+SMA said in a statement: ：The security of our devices has highest priority for SMA in all respects. We already assessed the mentioned issues on a technical basis and [are working] intensively on the correction."
+
+It added that only four of its models were affected by the vulnerabilities highlighted and that inverters not connected to the internet were safe. It also said that users were advised to change default passwords when installing the equipment.

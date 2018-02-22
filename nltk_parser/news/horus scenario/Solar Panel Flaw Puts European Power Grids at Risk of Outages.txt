@@ -1,0 +1,22 @@
+A Dutch security researcher has found a menacing vulnerability in essential component within solar panels dispersed across Europe that if exploited, could cause serious widespread power outages in European power grids.
+Solar Panel Flaw Found in the Inverter Converting Direct to Altering Current
+
+Willem Westerhof, a cybersecurity researcher at Dutch company ITsec, managed to discover a flaw within an essential component of solar panels, more specifically in the inverter that converts direct current to altering current. Westerhof claims that the critical flaw in the inverters can be found present in most internet-connected inverters installed throughout Europe. The figure of potential solar panels that could be exploited ranges in the thousands.
+
+Due to the interconnected nature of Internet of Things devices, their susceptibility is primarily mediated through the very fact they are connected to each other and to the internet. In effect, intruders could easily take control of large number of inverters and having done so, switch them off simultaneously, disrupting the power grid and affecting major geographical parts within Europe.
+Related Story: Persirai IoT Malware Exploits CVE-2017-8224, Known Vulnerabilities
+Solar Panel Flaw: Scale of Issue
+
+Upon conducting his research, Westerhof could identify some inverters ¡V made by the German market leader SMA, which were responsible for managing 15 gigawatts of power, however, they are all poorly secured and ineffectual against cyber-attacks. His initial reports were published prior to December 2016 with SMA sending out an official invitation to Westerhof to discuss his findings. Westerhof claims that since his meeting with SMA, little progress has been made on the cybersecurity issue of solar panels. Conversely, SMA has denied Westerhof¡¦s claims that its inverters are poorly secured against potential cyberattacks, rather the identified vulnerabilities are restricted only affect a limited range of their products and that they are focusing on resolving the issues at hand including technical corrections.
+
+Westerhof estimates that in the worst-case scenario, a three-hour power outage throughout Europe, somewhere mid-day in June has the potential to cause severe problem both in technical and financial terms with an estimation of around +/- 4.5 billion euros worth of damages. He has published a detailed analysis of the vulnerability considering an attack scenario dubbed by Westerhof as the ¡§Horus Scenario¡¨, named after the Egyptian deity
+
+In 2006, more than 10 million people were left without electricity in Germany, after a power shortage triggered multiple blackout throughout Western Europe. Major capital cities such as Madrid and Paris were affected, having spent hours without electricity because the incident.
+
+The German power grid had to deal with merely a 5-gigawatt shortage, whilst Westerhof¡¦s worst case attack scenario could in effect cause a three-times greater 15-gigawatt shortage.
+Solar Panel Flaw: the Implications
+
+Such solar panel inverters are just another example of why the Internet of Things must be more closely monitored and stricter cyber-security protocols implemented to ensure poorly designed or secured devices do not end up being the cause of colossal a multi-billion euro damages.
+Related Story: Linux/NyaDrop: New Malware on the IoT Horizon
+
+It is not just the financial and technical implications of such cyber-security threats that we ought to worry, there are larger implications of power outages in respect to hospitals and other vital societal institutions. With solar energy becoming ever-more in demand as well as being one of the eco-friendly alternatives to fossil fuels and nuclear energy, the question remains as to their security and resilience from national as well as international cyber-attacks.

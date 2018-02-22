@@ -1,0 +1,33 @@
+
+
+A cyber attack targeting vulnerabilities in solar panels could lead to the shutdown of a country¡¦s entire electricity grid, according to a Dutch researcher.
+
+Willem Westerhof, cybersecurity researcher at information security consultancy ITsec, said he has found 21 security vulnerabilities in solar panel inverters, which convert solar energy into electricity usable on a grid. 
+
+Countries all over the world have interconnected their electricity grids so that in the case of an emergency, they can draw power from each other, depending on which country has a surplus of produced energy. 
+
+These interconnected grids are managed based on expectation of power supply and power consumption. Any disruption to that balance could result in the shutdown of the entire grid. 
+
+Speaking at the SHA2017 security conference in the Netherlands on Monday, Westerhof said the inverters, many of which are internet-connected, could be targeted by hackers, allowing them to remotely control the flow of power. 
+
+Following the discovery, he performed a field test near Amsterdam on inverters manufactured by German company SMA Solar Technology, and found that he could hack into them, he said.
+
+Westerhof said he privately disclosed the flaws to SMA in December 2016 and also disclosed details of the theoretical attack ¡V called the Horus scenario after the ancient Egyptian sky god ¡V to specific government institutes and power grid regulators.
+
+¡§If an attacker does that on a large scale, that has serious consequences for the power grid stability,¡¨ he said. 
+
+A potential hack on a country like Germany, where solar energy covers up to half of all power demand at a given time, could be devastating, added Westerhof. 
+
+¡§A cyber attack in this grid at the right time could take out up to 50% of the nation¡¦s power supply almost instantly causing a very large nation-wide power outage,¡¨ he said.
+
+Westerhof also noted that as it is too costly for regulators to keep a large capacity of power as back up at all times, most countries would not have energy reserves available to cover lost production at a plant that falls victim to a cyber attack.
+
+He warned that if the attack was ever successfully executed, ¡§it is expected to cost billions of euros and have a direct and severe impact on everybody¡¦s lives¡¨.
+
+Responding to the comments, SMA said only four of its models were affected by the vulnerabilities, and that all other devices adhered to the latest security standards.
+
+¡§The security of our devices has the highest priority for SMA in all respects. We already assessed the mentioned issues on a technical basis and we are working intensively on the correction,¡¨ it said.
+
+"We will publish further technically detailed responses to Westerhoff's claims on our company website within the next couple of days.¡¨
+
+SMA added that it is currently working on an official report on the security of its devices with the Ductch National Cyber Security Centre.

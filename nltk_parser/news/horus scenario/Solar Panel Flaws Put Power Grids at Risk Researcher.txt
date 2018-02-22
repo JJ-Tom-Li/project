@@ -1,0 +1,37 @@
+A researcher has identified many vulnerabilities in widely used solar power systems and he believes some of these flaws could allow hackers to cause large-scale outages, but the affected vendor says his claims are exaggerated.
+
+In a scenario he calls ¡§Horus,¡¨ which stems from the name of the ancient Egyptian god, researcher Willem Westerhof describes a cyberattack on photovoltaic installations (i.e. solar panel systems) that causes billions of euros in damage.
+
+Westerhof pointed out that electricity providers have deployed a series of measures in order to maintain the stability of the grid and prevent outages caused by an imbalance between power supply and demand. One increasingly important component are solar panels, which provide energy to consumers and feed the excess power to the grid.
+
+The researcher believes that an attacker who can hijack PV installations on a large scale can cause a significant imbalance. Solar energy systems can often be accessed from local networks and even the Internet, and controlling the flow of power through these installations can have serious consequences.
+
+Westerhof believes such an attack is particularly feasible in regions such as Europe, where power grids are highly connected between different countries.
+
+¡§In Europe there is over 90 GW of PV power installed, an attacker capable of controlling the flow of power from a large number of these devices could therefore cause peaks or dips of several GigaWatts causing massive balancing issues which may lead to large scale power outages,¡¨ the researcher said on a website set up specially for the Horus project.
+
+Related: Learn More at SecurityWeek¡¦s 2017 ICS Cyber Security Conference
+
+Westerhof¡¦s practical analysis has focused on PV inverters from SMA, a Germany-based company whose products have been deployed around the world. PV inverters convert direct current obtained from solar panels into grid-compliant alternating current that can be fed into the public power grid.
+
+Black box analysis of these devices revealed 21 different vulnerabilities, including ones rated ¡§informational,¡¨ with a CVSS score of 0, and ones classified as ¡§critical,¡¨ with a CVSS score of 9.0.
+
+The list of flaws includes denial-of-service (DoS) issues, default and weak passwords, undocumented accounts, passwords and other sensitive data exposed to traffic interception, lack of proper authentication mechanisms for firmware updates, information disclosure, and cross-site request forgery (CSRF) vulnerabilities.
+
+The researcher believes that an attacker who is determined and technically skilled could shut down large parts of Europe¡¦s power grid by combining these security holes. Using a blackout simulator set up by the Johannes Kepler University Linz in Austria, he calculated that a 3-hour outage across Europe would cause roughly £á4.5 billion in damage and it would be difficult for authorities to contain.
+
+¡§In the worst case scenario an attacker compromises enough devices and shuts down all these devices at the same time causing threshold values to be hit. Power grids start failing and due to the import and export of power cascading blackouts start occurring. Several other power sources, such as windmills, automatically shut down to protect the grid and amplify the attack further,¡¨ Westerhof said.
+
+The security holes were reported to the vendor in December 2016 and the researcher says he has been in touch with various stakeholders in the energy sector throughout this year. The expert has not disclosed any technical details to ensure that his work cannot be abused.
+
+SMA says claims are exaggerated
+
+Contacted by SecurityWeek, SMA said it¡¦s working on addressing the vulnerabilities found by Westerhof in its inverters, but pointed out that some of his claims regarding the flaws and possible attacks are inaccurate or greatly exaggerated.
+
+The vendor says only some of its Sunny Boy and Sunny Tripower models are affected, and these devices are typically behind a firewall in residential installations. Furthermore, the company says an attack requires ¡§extremely high efforts and extensive expertise by a potential hacker.¡¨
+
+SMA has provided customers advice on how to secure their installations against cyberattacks, and claims that while its inverters are delivered with a default password, it actively asks customers to change it immediately after deployment.
+
+¡§Regarding possible effects on the public power supply, Willem mentions 17 GW of solar inverter power sold to the private market by SMA. This is the whole inverter power SMA has sold so far to the residential market. The power produced with the inverters that might be vulnerable to an attack is only a small fraction of this, and they are installed all over the world. So we see absolutely no danger to grid stability even in the extremely unlikely event that all inverters should be successfully attacked at the same time,¡¨ SMA explained.
+
+The company says it¡¦s working on an official report on the security of its devices with the National Cyber Security Centre (NCSC).

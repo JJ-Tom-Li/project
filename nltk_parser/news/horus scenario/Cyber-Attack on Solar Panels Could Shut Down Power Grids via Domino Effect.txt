@@ -1,0 +1,48 @@
+New research released on Friday, August 4, reveals the existence of multiple vulnerabilities in the products of the leading provider of photovoltaic panels, which if exploited in mass by a determined attacker could lead to a shutdown of one or more countries' power grids because of a domino effect.
+
+The research ¡X entitled Horus Scenario and authored by Dutch security engineer Willem Westerhof ¡X has identified 21 vulnerabilities in the photovoltaic panels sold by SMA. Of these, 14 flaws received CVE identifiers.
+
+Westerhof says he privately disclosed the flaws to SMA in December 2016. In January 2017, Westerhof says he also disclosed theoretical and practical details about an attack on photovoltaic inverters and its repercussions to specific governmental institutes and power grid regulators.
+Cyber-attack can cause a power grid domino effect
+
+The researcher claims that the SMA flaws allow an attacker to damage the normal functioning of a solar power plant. Due to the way power grids are built, any disturbance, small or large, will have a long-lasting and quick-spreading impact.
+
+All over the world countries have interconnected their power grids so that in the case of an emergency they can draw power from each other, depending on what country has a surplus of produced energy.
+
+These interconnected power grids are managed based on expectations of power supply and power consumption. For example, when a solar eclipse took place across Europe in 2015, power grid regulators had enough time to prepare and ramp up productions at nuclear or coal plants to cover the lack of energy coming from solar plants.
+
+Westerhof claims that a cyber-attack using the SMA flaws he discovered could lead to someone shutting down production at solar plants and causing the equivalent of a solar eclipse.
+Cyber-attack could take out a country's power grid
+
+The real damage would not come in the form of production and monetary loss for the solar plant's owners, but because of the impromptu shock to the power grid itself.
+
+For example, in countries such as Germany, at various moments, photovoltaic panels cover between 30% and 50% of all power demand.
+
+"A cyberattack in this grid at the right time could take out up to 50% of the nation¡¦s power supply," Westerhof explains. "Almost instantly causing a very large (nation-wide, up to continental due to the intertwined power grids) power outage."
+
+This is because energy cannot be stored indefinitely. Producing new power to cover an unforeseen event ¡X such as a cyber-attack ¡X takes time.
+
+"It is simply too costly for power regulators to have that amount of power balancing on standby at all times," Westerhof added. "It may even be impossible, to have that kind of reserves trigger instantly as power plants take quite some time to increase and decrease their overall power output."
+Flaws not fixed
+
+Eight months after Westerhof had contacted SMA, the flaws have not been patched. This page contains information on each vulnerability. The flaws range from easy-exploitable Denial-of-Service bugs to the usage of simple default passwords (0000). Some bugs need local access to use, but some allow remote exploitation via an Internet connection.
+
+The researcher has declined to provide technical details and proof-of-concept exploit code for ethical and security reasons. He'll also be presenting his findings at SHA2017, a nonprofit outdoor hacker conference taking place in The Netherlands.
+
+An SMA spokesperson was not available for comment on the story.
+List of SMA vulnerabilities:
+
+    CVE-2017-9851
+    CVE-2017-9852
+    CVE-2017-9853
+    CVE-2017-9854
+    CVE-2017-9855
+    CVE-2017-9856
+    CVE-2017-9857
+    CVE-2017-9858
+    CVE-2017-9859
+    CVE-2017-9860
+    CVE-2017-9861
+    CVE-2017-9862
+    CVE-2017-9863
+    CVE-2017-9864

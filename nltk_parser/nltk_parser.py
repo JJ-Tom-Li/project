@@ -32,14 +32,22 @@ class NLTK_parser:
 		bfdist = self.biagram_fdist.most_common(number_of_result)
 		if (outfile==""):
 			stream = sys.stdout
+			#如果沒有指定輸出檔名會直接顯示在螢幕上
+			print("出現頻率前 "+str(number_of_result)+" 名：")
+			self.show_freq(stream,nfdist)
+			print("雙連詞出現頻率前 "+str(number_of_result)+" 名：")
+			self.show_freq(stream,bfdist)
 		else:
 			stream = open(outfile,"w")
-		#如果沒有指定輸出檔名會直接顯示在螢幕上
-		stream.write("出現頻率前 "+str(number_of_result)+" 名：\n")
-		self.show_freq(stream,nfdist)
-		stream.write("雙連詞出現頻率前 "+str(number_of_result)+" 名：\n")
-		self.show_freq(stream,bfdist)
-		
+			for word in nfdist:
+				#輸出至螢幕
+				stream.write(word[0]+"\n")
+			stream.write("(biagram start)\n")
+			for word in bfdist:
+				#輸出至螢幕
+				stream.write(word[0]+"\n")
+			stream.write("\n")
+
 	def parser_freq(self,filename,dir):
 		with open(dir+filename,"rb") as f:
 			#讀入檔案
@@ -50,11 +58,13 @@ class NLTK_parser:
 			sentence=[]
 			#用regular expression 斷字
 			toker = RegexpTokenizer(r'\w+')
+			#分段切字
 			for paragraph in paragraphs:
 				sentence.extend(toker.tokenize(paragraph))
 
 			#delete stop words
 			sentence = [i for i in sentence if i not in self.stopworddic ]
+			
 			#generate all the bigrams
 			bigrams_words = nltk.bigrams(sentence)
 			#calculate the conditional frequency of bigrams

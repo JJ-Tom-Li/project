@@ -7,5 +7,6 @@ with open("keys.txt","r") as f:
 	access_token = tmplist[2]  
 	access_token_secret = tmplist[3]
 tc = Twitter_crawler(consumer_key,consumer_secret,access_token,access_token_secret)
-tc.crawler("output.json","CVEnew",1,1)
-tc.print_json("output.json")
+#tc.crawler("output.json","CVEnew",1,1)
+#tc.print_json("output.json")
+tc.get_followers("CVEnew")

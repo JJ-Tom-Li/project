@@ -1,6 +1,8 @@
 import tweepy
 import json
 import time
+import datetime
+from googletrans import Translator
 class Twitter_crawler:
 	def __init__(self,consumer_key,consumer_secret,access_token,access_token_secret,a=1):
 		self.consumer_key=consumer_key
@@ -30,22 +32,38 @@ class Twitter_crawler:
 					dataout.append(j)
 				print("Page " + str(i) + " finished.")
 			jsonf.write(json.dumps(dataout))
-	def crawler_by_time(self,outputjson,twitter_name,start_time,end_time):
+	def crawler_by_time(self,outputjson,twitter_name,start_time=time.time(),end_time=time.time()):
 		# Twitter target
 		name = twitter_name
 		# number of tweets
-		number=1;
+		number=1
 		dataout=[]
 		# crawl	
 		print("@"+name+":start crawl:")
 		with open(outputjson,"w") as jsonf:
-			for i in range(start_page,max_page+1):
-				# user user_timeline() to crawl tweet
-				results = self.api.user_timeline(id=name, page=i,tweet_mode='extended')
-				for index,j in enumerate(results):
-					dataout.append(j)
-				print("Page " + str(i) + " finished.")
+			#for i in range(start_page,max_page+1):
+			# user user_timeline() to crawl tweet
+			results = self.api.user_timeline(screen_name=name,tweet_mode='extended')
+			for index,j in enumerate(results):
+				dataout.append(j)
+			#print("Page " + str(i) + " finished.")
 			jsonf.write(json.dumps(dataout))
+	def print_tweets(self,filename):
+		inputdata=[]
+		translator = Translator()
+		with open(filename, encoding='utf-8') as f:
+			inputdata=json.loads(f.read())
+			inputdata = sorted(inputdata, key=lambda k:  self.tweet_time_to_datatime(k.get('created_at', 0)), reverse=True)
+			for index,i in enumerate(inputdata):
+				print("The "+str(index+1)+" tweet:\n")
+				try:
+					print("\t"+translator.translate(i['full_text'],dest='en').text)
+				except json.decoder.JSONDecodeError as e:
+					print("ERROR:"+str(e))
+					print("\t"+i['full_text'])
+				print("\tCreated at:"+i['created_at'] )
+				#print("\tURL:"+i['entities']['urls'][0]['expanded_url']+"\n")
+
 	def print_cve_json(self,filename):
 		inputdata=[]
 		with open(filename, encoding='utf-8') as f:
@@ -61,11 +79,66 @@ class Twitter_crawler:
 				print("\tCreated at:"+i['created_at'] )
 				print("\tURL:"+i['entities']['urls'][0]['expanded_url']+"\n")
 	def get_user(self,username):
+		#get a user's information 
 		user = self.api.get_user(username)
 		return user
 	def user_to_json(self,user):
 		j = json.dumps(user,ensure_ascii=False)
 		return j
+	def get_users(self,user_file,output_file="horus_experts.json"):
+		#Get users' information
+		#The list of user name is in user_file.
+		with open(user_file,"r") as inputf:
+			try:
+				names = []    #Store the name of users in output_file
+				old_data = []    #Keep the data in output_file
+				with open(output_file,encoding='utf-8') as jsonf:
+					try:
+						#open the output_file if it's existed.
+						old_data = json.loads(jsonf.read())
+						#Read the names in output_file
+						for expert in old_data:
+							names.append(expert['screen_name'])
+					except json.decoder.JSONDecodeError :
+						print("Json file error.")
+			except:
+				#If output_file isn't existed,create a new one.
+				print("Json file is not found.Create new one.")
+
+			with open(output_file,"w") as jsonf:
+				outputjson=[]    #Store the output data in json format. 
+				if len(names)!=0:
+					#Length of names !=0 means there is old data in output_file.
+					for name in names:
+						print(name)
+					#Put the old data into outputjson
+					outputjson.extend(old_data)
+				#Read the users' names from user_file
+				experts_name = inputf.read().split('\n')
+				for expert in experts_name:
+					if expert == "" :
+						#blank name
+						continue
+					if expert in names:
+						#It means the user has been crawled.
+						print(expert+" is already in file.")
+						continue
+					#Get the user information
+					user = self.get_user(expert)
+					#Put user information into outputjson
+					outputjson.append(user)
+					print("Expert \""+expert+"\" done.")
+				#dumps the json data
+				out = json.dumps(outputjson)
+				#Output to file
+				jsonf.write(out)
+				return out
+	def print_user_by_followers(self,filename):
+		users=[]
+		with open(filename,encoding='utf-8') as jsonf:
+			data = json.loads(jsonf.read())
+			for user in data:
+				print(user['screen_name']+": "+str(user['followers_count'])+" followers.")
 	'''	
 	def get_followers(self,twitter_name):
 		follower_id = []
@@ -115,3 +188,5 @@ class Twitter_crawler:
 			access_token = tmplist[2]  
 			access_token_secret = tmplist[3]
 		self.__init__(consumer_key,consumer_secret,access_token,access_token_secret)
+	def tweet_time_to_datatime(self,tweet_time):
+		return time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(tweet_time,'%a %b %d %H:%M:%S +0000 %Y'))

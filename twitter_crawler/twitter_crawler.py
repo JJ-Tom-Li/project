@@ -32,36 +32,70 @@ class Twitter_crawler:
 					dataout.append(j)
 				print("Page " + str(i) + " finished.")
 			jsonf.write(json.dumps(dataout))
-	def crawler_by_time(self,outputjson,twitter_name,start_time=time.time(),end_time=time.time()):
-		# Twitter target
-		name = twitter_name
-		# number of tweets
-		number=1
+	def crawler_by_time(self,outputjson,twitter_name
+		,start_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		,end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")):
+		#number of max tweets that can be crawled.
+		#max_number_of_tweets = 100000
+		api = tweepy.API(self.auth, wait_on_rate_limit=True
+						 , wait_on_rate_limit_notify=True,compression=True
+						 ,parser=tweepy.parsers.JSONParser()
+						 )
 		dataout=[]
+		#Flag of finish
+		crawl_finish = False
 		# crawl	
-		print("@"+name+":start crawl:")
+		print("@"+twitter_name+":start crawl:")
 		with open(outputjson,"w") as jsonf:
-			#for i in range(start_page,max_page+1):
-			# user user_timeline() to crawl tweet
-			results = self.api.user_timeline(screen_name=name,tweet_mode='extended')
-			for index,j in enumerate(results):
-				dataout.append(j)
-			#print("Page " + str(i) + " finished.")
+			index = 1
+			#for results in tweepy.Cursor(api.user_timeline, id=twitter_name,tweet_mode='extended').items():
+			results = api.user_timeline(screen_name=twitter_name,tweet_mode='extended')
+			results = sorted(results, key=lambda k:  self.tweet_time_to_time(k.get('created_at', 0)), reverse=True)
+			#maxid=results[-1]['id']
+			maxid=925515776932696066
+			sinceid=results[0]['id']
+			for tweet in results:
+					if(start_time<self.tweet_time_to_time(tweet['created_at'])<end_time):
+							dataout.append(tweet)
+			while self.tweet_time_to_time(results[-1]['created_at'])>start_time:
+				# user user_timeline() to crawl tweet
+				results = api.user_timeline(screen_name=twitter_name,max_id=maxid,tweet_mode='extended',count=200)
+				results = sorted(results, key=lambda k:  self.tweet_time_to_time(k.get('created_at', 0)), reverse=True)
+				if len(results)==0:
+					break
+				if maxid==results[-1]['id']:
+					break
+				maxid=results[-1]['id']
+				sinceid=results[0]['id']
+				if self.tweet_time_to_time(results[0]['created_at'])>end_time:
+					print(results[0]['created_at']+"is later than "+end_time)
+					continue
+				for tweet in results:
+					if(start_time<self.tweet_time_to_time(tweet['created_at'])<end_time):
+							dataout.append(tweet)
+				print("Page " + str(index) + " finished.")
+				index = index + 1
+				#if(len(dataout)>=max_number_of_tweets):
+				#	break
 			jsonf.write(json.dumps(dataout))
 	def print_tweets(self,filename):
 		inputdata=[]
-		translator = Translator()
+		#translator = Translator()
 		with open(filename, encoding='utf-8') as f:
 			inputdata=json.loads(f.read())
-			inputdata = sorted(inputdata, key=lambda k:  self.tweet_time_to_datatime(k.get('created_at', 0)), reverse=True)
+			#inputdata = sorted(inputdata, key=lambda k:  self.tweet_time_to_time(k.get('created_at', 0)), reverse=True)
 			for index,i in enumerate(inputdata):
-				print("The "+str(index+1)+" tweet:\n")
+				print("The "+str(index+1)+" tweet,tweet id = "+str(i['id'])+":")
+				'''
 				try:
+					#translate tweet by googletrans
 					print("\t"+translator.translate(i['full_text'],dest='en').text)
 				except json.decoder.JSONDecodeError as e:
 					print("ERROR:"+str(e))
 					print("\t"+i['full_text'])
-				print("\tCreated at:"+i['created_at'] )
+				'''
+				print("\t"+i['full_text'])
+				print("\tCreated at:"+i['created_at']+"\n")
 				#print("\tURL:"+i['entities']['urls'][0]['expanded_url']+"\n")
 
 	def print_cve_json(self,filename):
@@ -188,5 +222,6 @@ class Twitter_crawler:
 			access_token = tmplist[2]  
 			access_token_secret = tmplist[3]
 		self.__init__(consumer_key,consumer_secret,access_token,access_token_secret)
-	def tweet_time_to_datatime(self,tweet_time):
-		return time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(tweet_time,'%a %b %d %H:%M:%S +0000 %Y'))
+	def tweet_time_to_time(self,tweet_time):
+		return time.strftime('%Y-%m-%d %H:%M:%S'
+							, time.strptime(tweet_time,'%a %b %d %H:%M:%S +0000 %Y'))

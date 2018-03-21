@@ -35,48 +35,66 @@ class Twitter_crawler:
 	def crawler_by_time(self,outputjson,twitter_name
 		,start_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		,end_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")):
-		#number of max tweets that can be crawled.
-		#max_number_of_tweets = 100000
+		#Declare a api object
 		api = tweepy.API(self.auth, wait_on_rate_limit=True
 						 , wait_on_rate_limit_notify=True,compression=True
 						 ,parser=tweepy.parsers.JSONParser()
 						 )
+		
+		#Use to store crawled data.
 		dataout=[]
-		#Flag of finish
-		crawl_finish = False
+
 		# crawl	
 		print("@"+twitter_name+":start crawl:")
 		with open(outputjson,"w") as jsonf:
 			index = 1
 			#for results in tweepy.Cursor(api.user_timeline, id=twitter_name,tweet_mode='extended').items():
+			
+			#crawl the user timeline in extended mode(to get the 'full_text')
 			results = api.user_timeline(screen_name=twitter_name,tweet_mode='extended')
+			
+			#sort the crawled data
 			results = sorted(results, key=lambda k:  self.tweet_time_to_time(k.get('created_at', 0)), reverse=True)
+			
 			#maxid=results[-1]['id']
-			maxid=925515776932696066
+			maxid=925515776932696066 #the tweet id of Nov 1 2017
 			sinceid=results[0]['id']
+
+			#get tweets between the start_time and end_time
 			for tweet in results:
 					if(start_time<self.tweet_time_to_time(tweet['created_at'])<end_time):
 							dataout.append(tweet)
+			
 			while self.tweet_time_to_time(results[-1]['created_at'])>start_time:
-				# user user_timeline() to crawl tweet
+				# user user_timeline() to crawl tweet before max_id
 				results = api.user_timeline(screen_name=twitter_name,max_id=maxid,tweet_mode='extended',count=200)
 				results = sorted(results, key=lambda k:  self.tweet_time_to_time(k.get('created_at', 0)), reverse=True)
+				
 				if len(results)==0:
+					#if there is no data in results
 					break
+				
 				if maxid==results[-1]['id']:
+					#if the crawled data is repeat.
 					break
-				maxid=results[-1]['id']
-				sinceid=results[0]['id']
+				
+				maxid=results[-1]['id'] #Get the oldest tweet id  
+				sinceid=results[0]['id'] #Get the lastest tweet id
+
 				if self.tweet_time_to_time(results[0]['created_at'])>end_time:
+					#If the oldest tweet is later than end_time than continue.
 					print(results[0]['created_at']+"is later than "+end_time)
 					continue
+
 				for tweet in results:
-					if(start_time<self.tweet_time_to_time(tweet['created_at'])<end_time):
+					#If the tweet is in the time period than put it into dataout
+					if start_time<self.tweet_time_to_time(tweet['created_at'])<end_time:
 							dataout.append(tweet)
 				print("Page " + str(index) + " finished.")
 				index = index + 1
 				#if(len(dataout)>=max_number_of_tweets):
 				#	break
+			#output dataout to json file.
 			jsonf.write(json.dumps(dataout))
 	def print_tweets(self,filename):
 		inputdata=[]
@@ -126,13 +144,16 @@ class Twitter_crawler:
 			try:
 				names = []    #Store the name of users in output_file
 				old_data = []    #Keep the data in output_file
+
 				with open(output_file,encoding='utf-8') as jsonf:
 					try:
 						#open the output_file if it's existed.
 						old_data = json.loads(jsonf.read())
+						
 						#Read the names in output_file
 						for expert in old_data:
 							names.append(expert['screen_name'])
+					
 					except json.decoder.JSONDecodeError :
 						print("Json file error.")
 			except:
@@ -142,30 +163,41 @@ class Twitter_crawler:
 			with open(output_file,"w") as jsonf:
 				outputjson=[]    #Store the output data in json format. 
 				if len(names)!=0:
+					
 					#Length of names !=0 means there is old data in output_file.
 					for name in names:
 						print(name)
+					
 					#Put the old data into outputjson
 					outputjson.extend(old_data)
+				
 				#Read the users' names from user_file
 				experts_name = inputf.read().split('\n')
+				
 				for expert in experts_name:
+					
 					if expert == "" :
 						#blank name
 						continue
+					
 					if expert in names:
 						#It means the user has been crawled.
 						print(expert+" is already in file.")
 						continue
+					
 					#Get the user information
 					user = self.get_user(expert)
+					
 					#Put user information into outputjson
 					outputjson.append(user)
+					
 					print("Expert \""+expert+"\" done.")
+				
 				#dumps the json data
 				out = json.dumps(outputjson)
 				#Output to file
 				jsonf.write(out)
+				
 				return out
 	def print_user_by_followers(self,filename):
 		users=[]

@@ -1,4 +1,4 @@
-<code>news_list:list[  
+news_list:list[  
     
     {  
     
@@ -12,5 +12,5 @@
               }＜/br＞ 
           ]＜/br＞ 
     }＜/br＞ 
-]<code>
+]
      

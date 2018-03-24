@@ -1,5 +1,5 @@
-news_list:list[＜/br＞ 
-    {＜/br＞ 
+news_list:list[<br> 
+    {<br>
           'navigation':string,＜/br＞ 
           'news_list':list[＜/br＞ 
               {＜/br＞ 

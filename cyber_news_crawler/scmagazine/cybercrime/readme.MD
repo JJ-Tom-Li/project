@@ -1,5 +1,5 @@
-news_list:list[<br> 
-    {<br>
+<code>news_list:list[
+    {
           'navigation':string,＜/br＞ 
           'news_list':list[＜/br＞ 
               {＜/br＞ 
@@ -8,5 +8,5 @@ news_list:list[<br>
               }＜/br＞ 
           ]＜/br＞ 
     }＜/br＞ 
-]＜/br＞ 
+]<code>
      

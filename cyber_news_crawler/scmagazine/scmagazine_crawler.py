@@ -72,36 +72,51 @@ class scmagazine_crawler:
 					'body':body,			#body:string
 					'topics':topics			#topics:list of dict{'topic_link':string,'topic_name':string}
 				}
-	def get_title(self,soup):	
-		return soup.find('article').find('h1').text
+	def get_title(self,soup):
+		try:	
+			return soup.find('article').find('h1').text
+		except:
+			return ""
 	
 	def get_author(self,soup):
-		#get the author data
-		author = soup.select('div[class="author-name"]')
-		#get the author name from title
-		author_name = author[0].find('a')['title']
-		#get the author link from href
-		author_link = author[0].find('a')['href']
-		return (author_name,author_link)
+		try:
+			#get the author data
+			author = soup.select('div[class="author-name"]')
+			#get the author name from title
+			author_name = author[0].find('a')['title']
+			#get the author link from href
+			author_link = author[0].find('a')['href']
+			return (author_name,author_link)
+		except:
+			return ("","")
 	
 	def get_date(self,soup):
-		#get the date from article
-		return soup.find('article').find('time').text
-	
+		try:
+			#get the date from article
+			return soup.find('article').find('time').text
+		except:
+			return ""
+
 	def get_body(self,soup):
-		#get the article body
-		article_body = soup.select('div[class="article-body"]')[0].find_all('p')
-		body_text = ''
-		#combine the text of article body
-		for p in article_body:
-			body_text+=p.text+"\n\n"
-		return body_text
-	
+		try:
+			#get the article body
+			article_body = soup.select('div[class="article-body"]')[0].find_all('p')
+			body_text = ''
+			#combine the text of article body
+			for p in article_body:
+				body_text+=p.text+"\n\n"
+			return body_text
+		except:
+			return ""
+
 	def get_topics(self,soup):
-		#get topics from tags
-		topic_a = soup.find('section', attrs={'class':'flexibleTagsTags artTags'}).find_all('a')
-		topics = []
-		#put topics into list
-		for t in topic_a:
-			topics.append({'topic_link':t['href'],'topic_name':t.text})
-		return topics
+		try:
+			#get topics from tags
+			topic_a = soup.find('section', attrs={'class':'flexibleTagsTags artTags'}).find_all('a')
+			topics = []
+			#put topics into list
+			for t in topic_a:
+				topics.append({'topic_link':t['href'],'topic_name':t.text})
+			return topics
+		except:
+			return []

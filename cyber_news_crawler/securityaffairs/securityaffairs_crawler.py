@@ -51,13 +51,16 @@ class securityaffairs_crawler:
 					print(navi[0]+":page ",i)
 					res = requests.get(navi[1]+"/page/"+str(i))
 					soup = BeautifulSoup(res.text,"lxml")
-					#Get the row of news
-					news_row = soup.find('div',attrs={'class',"sidebar_content"}).find_all('div',id=re.compile('^post-'))
-					
-					for news in news_row:
-						#Get the news name and link row by row
-						tmp['news_list'].append({'news_name':news.find('h3').find('a')['title'],
-													'news_link':news.find('h3').find('a')['href']})
+					try:
+						#Get the row of news
+						news_row = soup.find('div',attrs={'class',"sidebar_content"}).find_all('div',id=re.compile('^post-'))
+						
+						for news in news_row:
+							#Get the news name and link row by row
+							tmp['news_list'].append({'news_name':news.find('h3').find('a')['title'],
+														'news_link':news.find('h3').find('a')['href']})
+					except:
+						continue
 				#put into news_list list
 				news_list.append(tmp)
 					

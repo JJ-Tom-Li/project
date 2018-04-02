@@ -11,7 +11,8 @@
 	'date':date,			#date:string
 	'body':body,			#body:string
 	'topics':topics			#topics:list of dict{'topic_link':string,'topic_name':string}
-}```
+}
+```  
 **`def get_title(self,soup):`**  
 **`def get_author(self,soup):`**  
 **`def get_date(self,soup):`**  

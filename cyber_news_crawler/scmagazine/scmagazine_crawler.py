@@ -40,12 +40,19 @@ class scmagazine_crawler:
 				#put into news_list list
 				news_list.append(tmp)
 		return news_list
+	'''
 	def news_list_crawler(self,news_list):
-		for news in news_list:
-			print("Crawl the '"+news['news_name']+"' news.")
-			res = requests.get(news['news_link'])
-			soup = BeautifulSoup(res.text,"lxml")
-			
+		for navi in news_list:
+			navi_tmp = navi
+			print("Navi:"+navi['navigation'])
+			for index,news in enumerate(navi_tmp['news_list']):
+				print("Crawl the ",index,"th news:"+news['news_name'])
+				if len(news) >2:
+					continue
+				tmp = self.crawler(news['news_link'])
+				news.update(tmp)
+		return news_list
+	'''
 	def crawler(self,url):
 		#The url of website
 		

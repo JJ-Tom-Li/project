@@ -45,6 +45,29 @@ with open("news_list2.json","w") as f:
 ## 3.爬取全部新聞  
 `with open("news_list2.json","r") as f:`這行會開啟news_list2.json檔案讀取新聞名稱及連結。  
 `if(navi['navigation']=='Intelligence'):` 這行可以設定要從哪個navigaion開始爬取新聞。   
-`with open("news/"+navi['navigation']+".json","w") as f:` 這行可以決定輸出的檔案名稱，預設是navigation_name.json  
+`with open("news/"+navi['navigation']+".json","w") as f:` 這行可以決定輸出的檔案名稱，預設是navigation_name.json。  
+	navigation_name.json:
+	```javascript
+	{  
+	      'navigation':string, 
+	      'news_list':list[ 
+		  {
+		      'news_name':string,
+		      'news_link':string,
+		      'title':string,	
+		      'author':string,	
+		      'author_link':string,
+		      'date':string,			
+		      'body':string,			
+		      'topics':[			
+		      	  {
+			  	'topic_link':string,
+			    	'topic_name':string
+			  }
+
+		  }
+	      ]
+	} 
+	```  
 
 

@@ -1,6 +1,6 @@
 # news/  
 存放爬下來的新聞json檔，news_list2.json有全部的新聞名稱及連結。  
-```json
+```javascript
 {  
       'navigation':string, 
       'news_list':list[ 

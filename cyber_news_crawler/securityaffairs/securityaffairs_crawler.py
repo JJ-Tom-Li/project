@@ -148,4 +148,4 @@ class securityaffairs_crawler:
 				topics.append({'topic_link':t['href'],'topic_name':t.text})
 			return topics
 		except:
-			return ""
+			return []

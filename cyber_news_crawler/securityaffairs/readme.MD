@@ -15,7 +15,7 @@
 }
 ```  
 **`def get_title(self,soup):`** 取得soup中的新聞標題，return一個string。   
-**`def get_author(self,soup):`** 取得soup中的新聞作者，return一個tuple(author_name::string,author_link::string)。  
+**`def get_author(self,soup):`** 取得soup中的新聞作者，return一個tuple`(author_name::string,author_link::string)`。  
 **`def get_date(self,soup):`** 取得新聞的發布日期，return一個string。   
-**`def get_body(self,soup):`** 取得新聞的文章內容，return一個string。 
-**`def get_topics(self,soup):`** 取得新聞的相關關鍵字，return一個list[{topic_name::string,topic_link::string}]。  
+**`def get_body(self,soup):`** 取得新聞的文章內容，return一個string。   
+**`def get_topics(self,soup):`** 取得新聞的相關關鍵字，return一個list`[{topic_name::string,topic_link::string}]`。  

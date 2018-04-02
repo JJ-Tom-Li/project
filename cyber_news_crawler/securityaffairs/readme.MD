@@ -47,7 +47,7 @@ with open("news_list2.json","w") as f:
 `if(navi['navigation']=='Intelligence'):` 這行可以設定要從哪個navigaion開始爬取新聞。   
 `with open("news/"+navi['navigation']+".json","w") as f:` 這行可以決定輸出的檔案名稱，預設是navigation_name.json。  
 	navigation_name.json:  
-	```javascript
+```javascript
 	{  
 	      'navigation':string, 
 	      'news_list':list[ 
@@ -68,6 +68,6 @@ with open("news_list2.json","w") as f:
 		  }
 	      ]
 	} 
-	```  
+```  
 
 

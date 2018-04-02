@@ -1,6 +1,6 @@
-#news/  
+# news/  
 	存放爬下來的新聞json檔，news_list2.json有全部的新聞名稱及連結  
-#`Class securityaffairs_cralwer`  
+# `Class securityaffairs_cralwer`  
 	
 	`def get_all_news_list(self,filename):`  
 	`def crawler(self,url):`  

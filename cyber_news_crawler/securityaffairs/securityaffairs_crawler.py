@@ -21,23 +21,36 @@ class securityaffairs_crawler:
 		with open(filename,"r") as f:
 			#read navigations' names and links from file
 			navis = f.read().split('\n')
+			#store the names of navigations
 			navis_list = []
+
 			for n in navis:
+			#split the file line by line
+			#every line has link and name
 				if n=="" or n=="\n":
 					break
 				n=n.split()
-				#store to list
+				#store to list (name,link)
 				navis_list.append((n[1],n[0])) 
-			for n in navis_list:
-				print(n[0]," ",n[1])
+			#for n in navis_list:
+			#	print(n[0]," ",n[1])
 			
+			#Store the news name and link
 			news_list=[]
+			#get the news name and link from navigations
 			for navi in navis_list:
 				#get the list of news_name and news_link from navigation
 				print("Get news from "+navi[0]+":")
-
-				res = requests.get(navi[1])
+				try:
+					res = requests.get(navi[1])
+				except:
+					#Wait 60 seconds if no response.
+					wait(60)
+					#Request one more time.
+					res = requests.get(navi[1])
+				#Get the content of website
 				soup = BeautifulSoup(res.text,"lxml")
+					
 				#Get the number of last page
 				last_page = [page for page in soup.select('div[class="pagination"]')[0]
 													.find_all('a') if page.text=="Last »"]
@@ -60,6 +73,7 @@ class securityaffairs_crawler:
 							tmp['news_list'].append({'news_name':news.find('h3').find('a')['title'],
 														'news_link':news.find('h3').find('a')['href']})
 					except:
+						#Continue if nothing is found in soup.
 						continue
 				#put into news_list list
 				news_list.append(tmp)
@@ -70,7 +84,11 @@ class securityaffairs_crawler:
 		#The url of website
 		
 		#get the contain of website
-		res = requests.get(url)
+		try:
+			res = requests.get(url)
+		except:
+			wait(60)
+			res = requests.get(url)
 		soup = BeautifulSoup(res.text,"lxml")
 		
 		#取得文章標題

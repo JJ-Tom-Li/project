@@ -44,7 +44,7 @@ with open("cybercrime/news_list.json","w") as f:
 這行會開啟一個news_list.json檔案，將步驟1return的news_list object輸出成json file.  
 
 ## 3.爬取全部新聞  
-`with open("cybercrime/news_list.json","r") as f:`這行會開啟news_list.json檔案讀取新聞名稱及連結。  
+`with open("cybercrime/news_list.json","r") as f:`這行會開啟news_list.json檔案讀取新聞名稱及連結。  
 `with open("cybercrime/"+navi['navigation']+".json","w") as f:` 這行可以決定輸出的檔案名稱，預設是navigation_name.json。  
 ### navigation_name.json:  
 ```javascript

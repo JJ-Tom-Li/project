@@ -4,14 +4,14 @@ sc = securityaffairs_crawler()
 news_list = sc.get_all_news_list("news/navigations2.txt")
 with open("news_list2.json","w") as f:
    json.dump(news_list, f)
-start_flag = False    #Start to crawl news if the flag is true
+start_flag = True    #Start to crawl news if the flag is true
 with open("news_list2.json","r") as f:
     #Read the news names and links from file.
     news_list = json.load(f)
     for navi in news_list:
-        if(navi['navigation']=='Intelligence'):
-            #Start crawl if the navigaion is what we want.
-            start_flag=True
+       # if(navi['navigation']=='Intelligence'):
+       #     #Start crawl if the navigaion is what we want.
+       #     start_flag=True
         if(not start_flag):
             continue    
         

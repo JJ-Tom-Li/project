@@ -92,22 +92,24 @@ def news_json_to_sql(json_directory,database_name,news_source):
             topicid = get_last_id_of_table(cursor,"News_topic")+1
 
             for item in jsondata['news_list']:
-                #Insert News_header
-                sql = """insert into News_header(News_id,Title,Date,author_id,News_source)
-                        values (%s,%s,%s,%s,%s);
-                    """
-                cursor.execute(sql,(newsid,
-                                    item['title'],
-                                    date_to_datetime(item['date']),
-                                    get_author_id(item['author']),
-                                    news_source
-                                    ))
-                #Insert News_content
-                #Insert News_topic
-                #Insert News_to_topic
-                #Insert News_author
-                newsid = newsid+1
-                db.commit()
+                #避免重複
+                if get_news_id(cursor,item['title']) ==0:
+                    #Insert News_header
+                    sql = """insert into News_header(News_id,Title,Date,author_id,News_source)
+                            values (%s,%s,%s,%s,%s);
+                        """
+                    cursor.execute(sql,(newsid,
+                                        item['title'],
+                                        date_to_datetime(item['date']),
+                                        get_author_id(cursor,item['author']),
+                                        news_source
+                                        ))
+                    #Insert News_content
+                    #Insert News_topic
+                    #Insert News_to_topic
+                    #Insert News_author
+                    newsid = newsid+1
+                    db.commit()
 
     db.close()
     print("Finish")
@@ -128,7 +130,37 @@ def get_last_id_of_table(cursor,table_name):
     result = cursor.fetchone()
 
     return result[0]
-def get_author_id(author_name):
+def get_news_id(cursor,news_name):
+    #Use the news title to get the news id.
+    #It will return 0 if is doesn't exist.
+    sql = "select News_id from News_header where title=%s;"
+    cursor.execute(sql,news_name)
+    result = cursor.fetchone()
+    if result:
+        return result[0]
+    else:
+        return 0
+def get_author_id(cursor,author_name):
+    #Use the author_name to get the author id.
+    #It will return 0 if is doesn't exist.
+    sql = "select Author_id from News_author where author_name=%s;"
+    cursor.execute(sql,author_name)
+    result = cursor.fetchone()
+    if result:
+        return result[0]
+    else:
+        return 0
+    return 0
+def get_topic_id(cursor,topic):
+    #Use the topic_name to get the topic id.
+    #It will return 0 if is doesn't exist.
+    sql = "select topic_id from News_author where topic_name=%s;"
+    cursor.execute(sql,topic)
+    result = cursor.fetchone()
+    if result:
+        return result[0]
+    else:
+        return 0
     return 0
 def date_to_datetime(date):
     return None

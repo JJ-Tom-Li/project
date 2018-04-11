@@ -2,9 +2,9 @@ import json
 import pymysql
 import getpass
 import sys
+import datetime
 """
     這個程式會把資安新聞json檔案輸出至local database。
-    文章部分會用txt檔另存
     使用方法: 
         python news_json_to_sql.py [json_directory] [database_name] [news_source]
 """
@@ -46,54 +46,92 @@ def news_json_to_sql(json_directory,database_name,news_source):
             for s in sql.split('\n'):
                 if len(s)<=1:
                     continue
-                print(s)
                 cursor.execute(s)
-            #db.commit()
+            is_all_exist=False
+            db.commit()
             print("Already drops all tables.")
         elif c=='N' or c=='n':
             print("Appending data to the table.")
         else:
             print("Input error.Appending data to the table.")
-    #Create tables        
-    for table in table_names:
-        if not is_table_exist(cursor,table):
-           # The table is missing or has not been created yet.
+    if not is_all_exist:
+        #Create tables        
+        for table in table_names:
+            if not is_table_exist(cursor,table):
+            # The table is missing or has not been created yet.
             # Create a new table for it.
-            create_News_table(cursor,table)
+                create_News_table(cursor,table)
 #--------------------------------------------Get data from json-------------------------------------------------
-    '''
-    #TODO
-    #Use to store json data
-    jsondata = []
-
-    #Load the json data
-    with open(json_name,encoding='utf-8') as jsonf:
-        print("Loading json data...")
-        tmp = json.loads(jsonf.read())
-        for line in tmp:
-            jsondata.append(line)
     
-    #json data to sql format
-    print("Insert data to table...")
-    for item in jsondata:
-        sql = """insert into solar_product(登錄編號,廠牌,型號,額定功率,輸入電壓,輸出電壓,登錄有效期限,相關認證,備註)
-                 values (%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
-        cursor.execute(sql,(
-            item['登錄編號'],item['廠牌'],item['型號'],item['額定功率(W)'],item['輸入電壓(V)']
-            ,item['輸出電壓(V)'],item['登錄有效期限'],item['相關認證(註1)'],item['備註']))
-    db.commit()'''
+    #TODO
+    import os
+
+    for filename in os.listdir(json_directory):
+        #Use to store json data
+        jsondata = []
+        if(filename[-5:]==".json"):
+            print("Parsing "+filename+":")
+
+            #Load the json data
+            with open(json_directory+"/"+filename,encoding='utf-8') as jsonf:
+                print("\tLoading json data...")
+                tmp = json.loads(jsonf.read())
+                for line in tmp:
+                    jsondata.append(line)
+
+            #Get the navigation
+            jsondata = jsondata[0]
+            navigation = jsondata['navigation']
+            
+            #json data to sql format
+            print("\tInsert data to table...")
+
+            #Get the last id of tables
+            newsid = get_last_id_of_table(cursor,"News_header")+1
+            authorid = get_last_id_of_table(cursor,"News_author")+1
+            topicid = get_last_id_of_table(cursor,"News_topic")+1
+
+            for item in jsondata['news_list']:
+                #Insert News_header
+                sql = """insert into News_header(News_id,Title,Date,author_id,News_source)
+                        values (%s,%s,%s,%s,%s);
+                    """
+                cursor.execute(sql,(newsid,
+                                    item['title'],
+                                    date_to_datetime(item['date']),
+                                    get_author_id(item['author']),
+                                    news_source
+                                    ))
+                #Insert News_content
+                #Insert News_topic
+                #Insert News_to_topic
+                #Insert News_author
+                newsid = newsid+1
+                db.commit()
+
     db.close()
     print("Finish")
 
-def is_table_exist(dbcursor,table_name):
+def is_table_exist(cursor,table_name):
     #Check if table_name table exists.
     sql = "SHOW TABLES LIKE '"+table_name+"';"
-    dbcursor.execute(sql)
-    result = dbcursor.fetchone()
+    cursor.execute(sql)
+    result = cursor.fetchone()
     if result:
         return True
     else:
         return False
+def get_last_id_of_table(cursor,table_name):
+    #Get the last id of table by counting the table
+    sql = "select count(*) from "+table_name+";"
+    cursor.execute(sql)
+    result = cursor.fetchone()
+
+    return result[0]
+def get_author_id(author_name):
+    return 0
+def date_to_datetime(date):
+    return None
 def create_News_table(cursor,table_name):
     if table_name=="News_header":
         create_News_header_table(cursor)
@@ -113,37 +151,25 @@ def create_News_header_table(cursor):
     #all encode with utf-8
     table_name = "News_header"
     print("Creating table "+table_name+" ...")
-    #TODO:
     sql = """
             create table """+table_name+""" (
-                登錄編號 varchar(30) NOT NULL,
-                廠牌 varchar(100) character set utf8,
-                型號 varchar(100) character set utf8,
-                額定功率 varchar(20) character set utf8,
-                輸入電壓 varchar(30) character set utf8,
-                輸出電壓 varchar(30) character set utf8,
-                登錄有效期限 varchar(100) character set utf8,
-                相關認證 varchar(100) character set utf8,
-                備註 varchar(100) character set utf8
+                News_id int PRIMARY KEY,
+                Title varchar(200) character set utf8,
+                Date datetime,
+                author_id int,
+                News_source varchar(50) character set utf8
             ); """
     cursor.execute(sql)
 def create_News_content_table(cursor):
-    #TODO:
     #create the data format of table
     #all encode with utf-8
     table_name = "News_content"
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                登錄編號 varchar(30) NOT NULL,
-                廠牌 varchar(100) character set utf8,
-                型號 varchar(100) character set utf8,
-                額定功率 varchar(20) character set utf8,
-                輸入電壓 varchar(30) character set utf8,
-                輸出電壓 varchar(30) character set utf8,
-                登錄有效期限 varchar(100) character set utf8,
-                相關認證 varchar(100) character set utf8,
-                備註 varchar(100) character set utf8
+                News_id int primary key,
+                News_link varchar(200) character set utf8,
+                News_body text
             ); """
     cursor.execute(sql)
 def create_News_topic_table(cursor):
@@ -154,15 +180,9 @@ def create_News_topic_table(cursor):
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                登錄編號 varchar(30) NOT NULL,
-                廠牌 varchar(100) character set utf8,
-                型號 varchar(100) character set utf8,
-                額定功率 varchar(20) character set utf8,
-                輸入電壓 varchar(30) character set utf8,
-                輸出電壓 varchar(30) character set utf8,
-                登錄有效期限 varchar(100) character set utf8,
-                相關認證 varchar(100) character set utf8,
-                備註 varchar(100) character set utf8
+                News_topic int primary key,
+                Topic_name varchar(100) character set utf8,
+                Topic_link varchar(100) character set utf8
             ); """
     cursor.execute(sql)
 def create_News_to_topic_table(cursor):
@@ -173,15 +193,8 @@ def create_News_to_topic_table(cursor):
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                登錄編號 varchar(30) NOT NULL,
-                廠牌 varchar(100) character set utf8,
-                型號 varchar(100) character set utf8,
-                額定功率 varchar(20) character set utf8,
-                輸入電壓 varchar(30) character set utf8,
-                輸出電壓 varchar(30) character set utf8,
-                登錄有效期限 varchar(100) character set utf8,
-                相關認證 varchar(100) character set utf8,
-                備註 varchar(100) character set utf8
+                News_id int,
+                Topic_id int
             ); """
     cursor.execute(sql)
 def create_News_author_table(cursor):    
@@ -192,18 +205,15 @@ def create_News_author_table(cursor):
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                登錄編號 varchar(30) NOT NULL,
-                廠牌 varchar(100) character set utf8,
-                型號 varchar(100) character set utf8,
-                額定功率 varchar(20) character set utf8,
-                輸入電壓 varchar(30) character set utf8,
-                輸出電壓 varchar(30) character set utf8,
-                登錄有效期限 varchar(100) character set utf8,
-                相關認證 varchar(100) character set utf8,
-                備註 varchar(100) character set utf8
+                Author_id int primary key,
+                Author_name varchar(100) character set utf8,
+                Author_link varchar(100) character set utf8
             ); """
     cursor.execute(sql)
+
+#--------------------------------------main function-----------------------------------------
 json_directory = sys.argv[1]
 database_name = sys.argv[2]
 news_source = sys.argv[3]
+print(json_directory+" "+database_name+" "+news_source)
 news_json_to_sql(json_directory,database_name,news_source)

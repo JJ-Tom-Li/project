@@ -1,4 +1,6 @@
 from nltk_parser_modules import *
+from unicodedata import normalize
+from math import log
 class NLTK_parser:
 
 	def __init__(self):
@@ -96,8 +98,76 @@ class NLTK_parser:
 		for show_word in word:
 			if show_word[1] == tag:
 				print(show_word)
+	def keywords(self,dir):	
+		number_of_file = 1
+		all_text_word_token = []
+		for filename in os.listdir(dir):
+			#If file is not end by ".txt" then continue
+			if(filename[-4:]!=".txt"):
+				continue
+						
+			with open(dir+filename,"r") as f:
+				#讀入檔案
+				SampleTXT = str(self.remove_non_ascii(str(f.read())))
+				#去掉\r\n\r\n
+				paragraphs = [p.lower() for p in SampleTXT.split('\\r\\n\\r\\n') if p]
+				#斷字
+				sentence=[]
+				#用regular expression 斷字
+				toker = RegexpTokenizer(r'\w+')
+				#分段切字
+				for paragraph in paragraphs:
+					sentence.extend(toker.tokenize(paragraph))
+				#tag the words
+				#sentence = pos_tag(sentence)
+				all_text_word_token.append(sentence)
+				'''
+				#count
+				for word in sentence:
+					#if the word is a noun
+					if(word[1] in self.N_tag):
+						self.fdist[word[0].lower()] += 1
+						'''
+			number_of_file = number_of_file + 1
+		self.find_keywords(all_text_word_token)
 		
-						
-						
+	def find_keywords(self,all_text_word_token):
+		keyword = []
+		for text in all_text_word_token:
+			tmp = []
+			sentence=text
+
+			#tag the words
+			sentence = pos_tag(sentence)
+			
+			#count
+			tmpfdist = FreqDist()
+			for word in sentence:
+				#if the word is a noun
+				if(word[1] in self.N_tag):
+					tmpfdist[word[0].lower()]=self.tf(text,word[0])*self.idf(all_text_word_token,word[0])
+			keyword.append(tmpfdist)
+			#index = index + 1
+		for w in keyword:
+			tmpf = w.most_common(20)
+			print()
+			for i in tmpf:
+				print(i[0],":",i[1])
+	def idf(self,all_text_word_token,word):
+		count = 0
+		for text_token in all_text_word_token:
+			if word in text_token:
+				count = count + 1
+		return log(len(all_text_word_token)/float(count))
+	def tf(self,text_token,word):
+		count = 0
+		for w in text_token:
+			if w==word:
+				count = count + 1
+		return count
+	#def tf_cross_idf(self,word,text_id):
+	#	print()
+	def remove_non_ascii(self,text):
+		return normalize('NFKD', text).encode('ascii','ignore')				
 						
 						

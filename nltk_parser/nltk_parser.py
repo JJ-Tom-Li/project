@@ -129,30 +129,26 @@ class NLTK_parser:
 						self.fdist[word[0].lower()] += 1
 						'''
 			number_of_file = number_of_file + 1
-		self.find_keywords(all_text_word_token)
+		self.find_keywords(all_text_word_token,0)
 		
-	def find_keywords(self,all_text_word_token):
+	def find_keywords(self,all_text_word_token,text_id):
 		keyword = []
-		for text in all_text_word_token:
-			tmp = []
-			sentence=text
+		tmp = []
+		sentence=all_text_word_token[text_id]
 
-			#tag the words
-			sentence = pos_tag(sentence)
-			
-			#count
-			tmpfdist = FreqDist()
-			for word in sentence:
-				#if the word is a noun
-				if(word[1] in self.N_tag):
-					tmpfdist[word[0].lower()]=self.tf(text,word[0])*self.idf(all_text_word_token,word[0])
-			keyword.append(tmpfdist)
-			#index = index + 1
-		for w in keyword:
-			tmpf = w.most_common(20)
-			print()
-			for i in tmpf:
-				print(i[0],":",i[1])
+		#tag the words
+		pos_sentence = pos_tag(sentence)
+		
+		#count
+		fdist = FreqDist()
+		for word in pos_sentence:
+			#if the word is a noun
+			if(word[1] in self.N_tag):
+				fdist[word[0].lower()]=self.tf(sentence,word[0])*self.idf(all_text_word_token,word[0])
+
+		tmpf = fdist.most_common(20)
+		for i in tmpf:
+			print(i[0],":",i[1])
 	def idf(self,all_text_word_token,word):
 		count = 0
 		for text_token in all_text_word_token:

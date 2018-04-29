@@ -3,6 +3,7 @@ import pymysql
 import getpass
 import sys
 import datetime
+
 """
     這個程式會把CVEjson檔案輸出至local database。
     使用方法: python cve_json_to_sql.py [json_directory] [database_name]
@@ -38,11 +39,11 @@ def cve_json_to_sql(json_directory,database_name):
         c = input("Tables are already exist.Do you want to drop them and create new ones(Y/n)?")
         if c=='Y' or c=='y':
             #Drop the former table.
-            sql = """DROP TABLE IF exists """+table_names[0]+"""
-                    DROP TABLE IF exists """+table_names[1]+"""
-                    DROP TABLE IF exists """+table_names[2]+"""
+            sql = """DROP TABLE IF exists """+table_names[4]+"""
                     DROP TABLE IF exists """+table_names[3]+"""
-                    DROP TABLE IF exists """+table_names[4]
+                    DROP TABLE IF exists """+table_names[2]+"""
+                    DROP TABLE IF exists """+table_names[1]+"""
+                    DROP TABLE IF exists """+table_names[0]
             for s in sql.split('\n'):
                 if len(s)<=1:
                     continue
@@ -99,74 +100,98 @@ def cve_json_to_sql(json_directory,database_name):
             vendorid_count = get_last_id_of_table(cursor,table_names[2])+1
             productid_count = get_last_id_of_table(cursor,table_names[3])+1
 
-            for item in jsondata['CVE_items']:
+            for item in jsondata['CVE_Items']:
                 #避免重複
                 if is_CVE_id_exist(cursor,item['cve']['CVE_data_meta']['ID'])==False:
+
+                    #Get the CVE id
                     CVE_id=item['cve']['CVE_data_meta']['ID']
-                    #Parsing the vendor id
-                    vendor_name=item['cve']['affects']['vendor']['vendor_data'].vendor_name
-                    tmpid = get_vendor_id(cursor,vendor_name)
-                    if tmpid!=0:
-                        #The vendor has been store in table.
-                        vendorid = tmpid
-                    else:
-                        #Vendor not be found in table.Create a new vendor information.
-                        vendorid = vendorid_count
-                        vendorid_count = vendorid_count + 1
 
-                        #Insert CVE_vendor
-                        sql = """insert into """+table_names[2]+"""(Vendor_id,Vendor_name)
-                                values (%s,%s);
-                            """
-                        cursor.execute(sql,(vendorid,
-                                            vendor_name)
-                                    )
-
+                    #Get CVSS score
+                    try:
+                        item['impact']['baseMetricV2']['cvssV2']['baseScore']
+                        score = item['impact']['baseMetricV2']['cvssV2']['baseScore']
+                    except:
+                        score=None
+                    #print(CVE_id)
                     #Insert CVE_header
                     sql = """insert into """+table_names[0]+"""(CVE_id,PublishedDate,LastModifiedDate,Score)
                             values (%s,%s,%s,%s);
                         """
                     cursor.execute(sql,(CVE_id,
-                                        date_to_datetime(item['cve'].publishedDate),
-                                        date_to_datetime(item['cve'].lastModefiedDate),
-                                        item['impact']['baseMetricV2']['cvssV2'].baseScore
+                                        date_to_datetime(item['publishedDate']),
+                                        date_to_datetime(item['lastModifiedDate']),
+                                        score
                                         ))
                     
                     #Insert CVE_content
-                    sql = """insert into CVE_content(CVE_id,CVE_description)
+                    sql = """insert into """+table_names[1]+"""(CVE_id,CVE_description)
                             values (%s,%s);
                         """
                     cursor.execute(sql,(CVE_id,
-                                        item['cve']['description']['description_data'][0].value
+                                        item['cve']['description']['description_data'][0]['value']
                                         ))
-                            
-                    #Insert CVE_product and CVE_to_product
-                    for t in item['topics']:
-                        #Parsing the tag id
-                        tmpid = get_tag_id(cursor,t['topic_name'])
-                        if tmpid!=0:
-                            #The tag has been stored in table.
-                            tagid = tmpid
-                        else:
-                            #Author not be found in table.Create a new author information.
-                            tagid = tagid_count
-                            tagid_count = tagid_count + 1
 
-                            #Insert into News_topic table
-                            sql = """insert into News_tag(tag_id,tag_name,tag_link)
-                                values (%s,%s,%s);
-                            """
-                            cursor.execute(sql,(tagid,
-                                            t['topic_name'],
-                                            t['topic_link']
-                                            ))
-                        #Insert News_to_tag
-                        sql = """insert into News_to_tag(News_id,tag_id)
-                                values (%s,%s);
-                            """
-                        cursor.execute(sql,(newsid_count,
-                                            tagid
-                                            ))
+                    #Parsing the vendor id
+                    vendors=item['cve']['affects']['vendor']['vendor_data']
+                    for v in vendors:
+                        vendor_name = v['vendor_name']
+                        tmpid = get_vendor_id(cursor,vendor_name)
+                        if tmpid!=0:
+                            #The vendor has been store in table.
+                            vendorid = tmpid
+                        else:
+                            #Vendor not be found in table.Create a new vendor information.
+                            vendorid = vendorid_count
+                            vendorid_count = vendorid_count + 1
+
+                            #Insert CVE_vendor
+                            sql = """insert into """+table_names[2]+"""(Vendor_id,Vendor_name)
+                                    values (%s,%s);
+                                """
+                            cursor.execute(sql,(vendorid,
+                                                vendor_name)
+                                        )        
+                    #Insert CVE_product and CVE_to_product
+                    for v in vendors:
+                        #Get the product list
+                        products = v['product']['product_data']
+                        vendor_name = v['vendor_name']
+                        for t in products:
+                            #Get the product name
+                            product_name = t['product_name']
+
+                            #Store different product versions
+                            for ver in t['version']['version_data']:
+                                #Parsing the product id
+                                if ver['version_value']=='*':
+                                    ver['version_value']='all'
+                                tmpid = get_product_id(cursor,product_name,ver['version_value'])
+                                if tmpid!=0:
+                                    #The version of product has been stored in table.
+                                    productid = tmpid
+                                else:
+                                    #This version of product is not found in table.
+                                    #Create a new product information.
+                                    productid = productid_count
+                                    productid_count = productid_count + 1
+
+                                    #Insert into CVE_product table
+                                    sql = """insert into """+table_names[3]+"""(product_id,product_name,vendor_id,product_ver)
+                                        values (%s,%s,%s,%s);
+                                    """
+                                    cursor.execute(sql,(productid,
+                                                        product_name,
+                                                        get_vendor_id(cursor,vendor_name),
+                                                        ver['version_value']
+                                                    ))
+                                #Insert CVE_to_product
+                                sql = """insert into """+table_names[4]+"""(CVE_id,product_id)
+                                        values (%s,%s);
+                                    """
+                                cursor.execute(sql,(CVE_id,
+                                                    productid
+                                                    ))
 
                     db.commit()
 
@@ -201,7 +226,7 @@ def is_CVE_id_exist(cursor,CVE_id):
 def get_vendor_id(cursor,vendor_name):
     #Use the vendor_name to get the vendor id.
     #It will return 0 if is doesn't exist.
-    sql = "select Vendor_id from "+table_names[2]+" where author_name=%s;"
+    sql = "select Vendor_id from "+table_names[2]+" where vendor_name=%s;"
     cursor.execute(sql,vendor_name)
     result = cursor.fetchone()
     if result:
@@ -212,20 +237,24 @@ def get_vendor_id(cursor,vendor_name):
 def get_product_id(cursor,product_name,product_ver):
     #Use the product_name and product_ver to get the product id.
     #It will return 0 if is doesn't exist.
-    sql = "select product_id from "+table_names[3]+" where product_name=%s and product_ver=%s;"
-    cursor.execute(sql,product_name,product_ver)
-    result = cursor.fetchone()
+    sql = "select product_id,product_ver from "+table_names[3]+" where product_name=%s;"
+    cursor.execute(sql,(product_name))
+    result = cursor.fetchall()
     if result:
-        return result[0]
+        for r in result:
+            if r[1]==product_ver:
+                return r[0]
+        return 0
     else:
         return 0
     return 0
 def date_to_datetime(date):
     import time
+    
     if date=="":
         return None
     else:
-        t = time.strptime(date, "%Y-%m-%dT%H%MZ")
+        t = time.strptime(date, "%Y-%m-%dT%H:%MZ")
         return t
 def create_CVE_table(cursor,table_name):
     if table_name==table_names[0]:
@@ -310,8 +339,8 @@ def create_CVE_to_product_table(cursor):
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                CVE_id int,
-                Prodcut_id int
+                CVE_id varchar(30) character set utf8,
+                Product_id int
 
             ); """
     cursor.execute(sql)

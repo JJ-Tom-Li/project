@@ -98,43 +98,42 @@ class NLTK_parser:
 		for show_word in word:
 			if show_word[1] == tag:
 				print(show_word)
-	def keywords(self,dir):	
-		number_of_file = 1
-		all_text_word_token = []
-		for filename in os.listdir(dir):
+	def get_text_word_token(self,text):	
+		#text_word_token = []
+		#for text in all_text:
 			#If file is not end by ".txt" then continue
-			if(filename[-4:]!=".txt"):
-				continue
+			#if(filename[-4:]!=".txt"):
+			#	continue
 						
-			with open(dir+filename,"r") as f:
-				#讀入檔案
-				SampleTXT = str(self.remove_non_ascii(str(f.read())))
-				#去掉\r\n\r\n
-				paragraphs = [p.lower() for p in SampleTXT.split('\\r\\n\\r\\n') if p]
-				#斷字
-				sentence=[]
-				#用regular expression 斷字
-				toker = RegexpTokenizer(r'\w+')
-				#分段切字
-				for paragraph in paragraphs:
-					sentence.extend(toker.tokenize(paragraph))
-				#tag the words
-				#sentence = pos_tag(sentence)
-				all_text_word_token.append(sentence)
+			#with open(dir+filename,"r") as f:
+		#讀入檔案
+		SampleTXT = str(self.remove_non_ascii(text))
+		#去掉\r\n\r\n
+		paragraphs = [p.lower() for p in SampleTXT.split('\\r\\n\\r\\n') if p]
+		#斷字
+		sentence=[]
+		#用regular expression 斷字
+		toker = RegexpTokenizer(r'\w+')
+		#分段切字
+		for paragraph in paragraphs:
+			sentence.extend(toker.tokenize(paragraph))
+		#tag the words
+		#sentence = pos_tag(sentence)
+		#text_word_token.append(sentence)
+		return sentence
+		'''
+		#count
+		for word in sentence:
+			#if the word is a noun
+			if(word[1] in self.N_tag):
+				self.fdist[word[0].lower()] += 1
 				'''
-				#count
-				for word in sentence:
-					#if the word is a noun
-					if(word[1] in self.N_tag):
-						self.fdist[word[0].lower()] += 1
-						'''
-			number_of_file = number_of_file + 1
-		self.find_keywords(all_text_word_token,0)
+		#self.find_keywords(all_text_word_token,0)
 		
 	def find_keywords(self,all_text_word_token,text_id):
 		keyword = []
 		tmp = []
-		sentence=all_text_word_token[text_id]
+		sentence=all_text_word_token[text_id-1]
 
 		#tag the words
 		pos_sentence = pos_tag(sentence)
@@ -146,7 +145,7 @@ class NLTK_parser:
 			if(word[1] in self.N_tag):
 				fdist[word[0].lower()]=self.tf(sentence,word[0])*self.idf(all_text_word_token,word[0])
 
-		tmpf = fdist.most_common(20)
+		tmpf = fdist.most_common(30)
 		for i in tmpf:
 			print(i[0],":",i[1])
 	def idf(self,all_text_word_token,word):

@@ -29,7 +29,7 @@ def news_json_to_sql(json_directory,database_name,news_source):
 
 #--------------------------------------------Create tables -------------------------------------------------
     #Store all the table names.
-    table_names = ["News_header","News_content","News_topic","News_to_topic","News_author"]
+    table_names = ["News_header","News_content","News_tag","News_to_tag","News_author"]
     #The flag will be True if all table are exist
     is_all_exist = True
     #Check if the tables are all exist.
@@ -42,8 +42,8 @@ def news_json_to_sql(json_directory,database_name,news_source):
             #Drop the former table.
             sql = """DROP TABLE IF exists News_header
                     DROP TABLE IF exists News_content
-                    DROP TABLE IF exists News_topic
-                    DROP TABLE IF exists News_to_topic
+                    DROP TABLE IF exists News_tag
+                    DROP TABLE IF exists News_to_tag
                     DROP TABLE IF exists News_author"""
             for s in sql.split('\n'):
                 if len(s)<=1:
@@ -65,7 +65,6 @@ def news_json_to_sql(json_directory,database_name,news_source):
                 create_News_table(cursor,table)
 #--------------------------------------------Get data from json-------------------------------------------------
     
-    #TODO
     import os
 
     for filename in os.listdir(json_directory):
@@ -95,7 +94,7 @@ def news_json_to_sql(json_directory,database_name,news_source):
             #Get the last id of tables
             newsid_count = get_last_id_of_table(cursor,"News_header")+1
             authorid_count = get_last_id_of_table(cursor,"News_author")+1
-            topicid_count = get_last_id_of_table(cursor,"News_topic")+1
+            tagid_count = get_last_id_of_table(cursor,"News_tag")+1
 
             for item in jsondata['news_list']:
                 #避免重複
@@ -140,32 +139,32 @@ def news_json_to_sql(json_directory,database_name,news_source):
                                         remove_non_ascii(item['body'])
                                         ))
                             
-                    #Insert News_topic and News_to_topic
+                    #Insert News_tag and News_to_tag
                     for t in item['topics']:
-                        #Parsing the topic id
-                        tmpid = get_topic_id(cursor,t['topic_name'])
+                        #Parsing the tag id
+                        tmpid = get_tag_id(cursor,t['topic_name'])
                         if tmpid!=0:
-                            #The topic has been stored in table.
-                            topicid = tmpid
+                            #The tag has been stored in table.
+                            tagid = tmpid
                         else:
                             #Author not be found in table.Create a new author information.
-                            topicid = topicid_count
-                            topicid_count = topicid_count + 1
+                            tagid = tagid_count
+                            tagid_count = tagid_count + 1
 
                             #Insert into News_topic table
-                            sql = """insert into News_topic(Topic_id,Topic_name,Topic_link)
+                            sql = """insert into News_tag(tag_id,tag_name,tag_link)
                                 values (%s,%s,%s);
                             """
-                            cursor.execute(sql,(topicid,
+                            cursor.execute(sql,(tagid,
                                             t['topic_name'],
                                             t['topic_link']
                                             ))
-                        #Insert News_to_topic
-                        sql = """insert into News_to_topic(News_id,Topic_id)
+                        #Insert News_to_tag
+                        sql = """insert into News_to_tag(News_id,tag_id)
                                 values (%s,%s);
                             """
                         cursor.execute(sql,(newsid_count,
-                                            topicid
+                                            tagid
                                             ))
                      
                     
@@ -214,11 +213,11 @@ def get_author_id(cursor,author_name):
     else:
         return 0
     return 0
-def get_topic_id(cursor,topic):
-    #Use the topic_name to get the topic id.
+def get_tag_id(cursor,tag):
+    #Use the tag_name to get the tag id.
     #It will return 0 if is doesn't exist.
-    sql = "select topic_id from News_topic where topic_name=%s;"
-    cursor.execute(sql,topic)
+    sql = "select tag_id from News_tag where tag_name=%s;"
+    cursor.execute(sql,tag)
     result = cursor.fetchone()
     if result:
         return result[0]
@@ -237,10 +236,10 @@ def create_News_table(cursor,table_name):
         create_News_header_table(cursor)
     elif table_name=="News_content":
         create_News_content_table(cursor)
-    elif table_name=="News_topic":
-        create_News_topic_table(cursor)
-    elif table_name=="News_to_topic":
-        create_News_to_topic_table(cursor)
+    elif table_name=="News_tag":
+        create_News_tag_table(cursor)
+    elif table_name=="News_to_tag":
+        create_News_to_tag_table(cursor)
     elif table_name=="News_author":
         create_News_author_table(cursor)
     else:
@@ -272,29 +271,29 @@ def create_News_content_table(cursor):
                 News_body text character set utf8mb4
             ); """
     cursor.execute(sql)
-def create_News_topic_table(cursor):
+def create_News_tag_table(cursor):
     #TODO:
     #create the data format of table
     #all encode with utf-8
-    table_name = "News_topic"
+    table_name = "News_tag"
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
-                Topic_id int primary key,
-                Topic_name varchar(100) character set utf8,
-                Topic_link varchar(200) character set utf8
+                Tag_id int primary key,
+                Tag_name varchar(100) character set utf8,
+                Tag_link varchar(200) character set utf8
             ); """
     cursor.execute(sql)
-def create_News_to_topic_table(cursor):
+def create_News_to_tag_table(cursor):
     #TODO:
     #create the data format of table
     #all encode with utf-8
-    table_name = "News_to_topic"
+    table_name = "News_to_tag"
     print("Creating table "+table_name+" ...")
     sql = """
             create table """+table_name+""" (
                 News_id int,
-                Topic_id int
+                Tag_id int
             ); """
     cursor.execute(sql)
 def create_News_author_table(cursor):    
@@ -310,6 +309,7 @@ def create_News_author_table(cursor):
                 Author_link varchar(100) character set utf8
             ); """
     cursor.execute(sql)
+
 emoji_pattern = re.compile(
     u"(\ud83d[\ude00-\ude4f])|"  # emoticons
     u"(\ud83c[\udf00-\uffff])|"  # symbols & pictographs (1 of 2)

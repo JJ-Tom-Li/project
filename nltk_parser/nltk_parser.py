@@ -130,7 +130,7 @@ class NLTK_parser:
 				'''
 		#self.find_keywords(all_text_word_token,0)
 		
-	def find_keywords(self,all_text_word_token,text_id):
+	def find_keywords(self,all_text_word_token,text_id,number_of_result):
 		keyword = []
 		tmp = []
 		sentence=all_text_word_token[text_id-1]
@@ -145,7 +145,7 @@ class NLTK_parser:
 			if(word[1] in self.N_tag):
 				fdist[word[0].lower()]=self.tf(sentence,word[0])*self.idf(all_text_word_token,word[0])
 
-		tmpf = fdist.most_common(30)
+		tmpf = fdist.most_common(number_of_result)
 		for i in tmpf:
 			print(i[0],":",i[1])
 	def idf(self,all_text_word_token,word):

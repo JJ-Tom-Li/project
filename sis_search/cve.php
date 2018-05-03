@@ -2,20 +2,20 @@
     <head>
         <?php
             //Include functions.
-            include_once("news_query.php");
+            include_once("cve_query.php");
             //Link to database.
             $con = mysqli_connect("localhost","root","root");
             mysqli_select_db($con,"sis");
 
-            function show_news($con,$news_id){
-                $title = get_title_from_news_id($con,$news_id);
-                $news_link = get_news_link_from_news_id($con,$news_id);
-                $author_name = get_author_name_from_news_id($con,$news_id);
-                $author_link = get_author_link_from_news_id($con,$news_id);
-                $date = get_date_from_news_id($con,$news_id);
-                $news_source = get_news_source_from_news_id($con,$news_id);
-                $news_body = get_news_body_from_news_id($con,$news_id);
-                $news_tag = get_news_tag_from_news_id($con,$news_id);
+            function show_news($con,$cve_id){
+                $title = get_title_from_cve_id($con,$cve_id);
+                $news_link = get_news_link_from_cve_id($con,$cve_id);
+                $author_name = get_author_name_from_cve_id($con,$cve_id);
+                $author_link = get_author_link_from_cve_id($con,$cve_id);
+                $date = get_date_from_cve_id($con,$cve_id);
+                $news_source = get_news_source_from_cve_id($con,$cve_id);
+                $news_body = get_news_body_from_cve_id($con,$cve_id);
+                $news_tag = get_news_tag_from_cve_id($con,$cve_id);
 
                 ?>
                 <table class="show_news" style="border:3px #cccccc solid;" cellpadding="10" border='1'>
@@ -69,8 +69,8 @@
     </head>
     <body>
             <?php
-                $news_id = $_GET['news_id'];
-                show_news($con,$news_id);
+                $cve_id = $_GET['cve_id'];
+                show_news($con,$cve_id);
             ?>
     </body>
 </html>

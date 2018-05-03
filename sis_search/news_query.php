@@ -71,15 +71,21 @@
         return mysqli_fetch_row($result)[0]; 
     }
 
-//-----------------------topic------------------------------------
-    function get_topic_name_from_topic_id($con,$topic_id){
+//-----------------------tag------------------------------------
+    function get_tag_name_from_tag_id($con,$tag_id){
         $result = mysqli_query($con
-        ,"select topic_name from news_topic where topic_id=$topic_id");
+        ,"select tag_name from news_tag where tag_id=$tag_id");
         return mysqli_fetch_row($result)[0]; 
     }
 
+    function get_news_tag_from_news_id($con,$news_id){
+        $result = mysqli_query($con
+        ,"select tag_name,tag_link from news_to_tag natural join news_tag where news_id=$news_id");
+        return $result;
+    }
+
 //-----------------------show result------------------------------------
-    function show_result_table($con,$data){
+    function show_news_result_table($con,$data){
         ?>
         <table name="news_list">
                 <tr>
@@ -94,10 +100,15 @@
                         $rs=mysqli_fetch_row($data);
                     ?>
                         <tr>
-                            <td><?php echo $rs[0]?></td>
+                            <!--news id-->
+                            <td><?php echo $rs[0]?></td> 
+                            <!--news page-->
                             <td><a href="<?php echo "news.php?news_id=".$rs[0]?>"> <?php echo $rs[1]?> </a></td>
+                            <!--news published date-->
                             <td><?php echo $rs[2]?></td>
+                            <!--news author-->
                             <td><a href="<?php echo get_author_link_from_author_id($con,$rs[3])?>"><?php echo get_author_name_from_author_id($con,$rs[3])?></a></td>
+                            <!--news source-->
                             <td><?php echo $rs[4]?></td>
                         </tr>
                     <?php

@@ -3,7 +3,7 @@
         <?php
         include_once("news_query.php");
         
-        $con = mysqli_connect("localhost","root","root");
+        $con = mysqli_connect("140.120.15.148","dmlabcollege","Dmlab702b$");
         mysqli_select_db($con,"sis");
         $data = mysqli_query($con,"select * from news_header limit 60");
 
@@ -46,10 +46,14 @@
                 利用新聞來源查詢:<input type="text" name="search_by_source_input">
                 <input type="submit" value="查詢"/><br>
             </form>
+            <form method="get" action="search_result.php">
+                利用產品廠牌查詢CVE:<input type="text" name="cve_search_by_vendor_input">
+                <input type="submit" value="查詢"/><br>
+            </form>
         </div>
         <div class="show_result_table">
             <?php
-                show_result_table($con,$data);
+                show_news_result_table($con,$data);
             ?>
         </div>
     </body>

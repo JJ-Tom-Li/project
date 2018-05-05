@@ -8,58 +8,74 @@
             mysqli_select_db($con,"sis");
 
             function show_news($con,$cve_id){
-                $title = get_title_from_cve_id($con,$cve_id);
-                $news_link = get_news_link_from_cve_id($con,$cve_id);
-                $author_name = get_author_name_from_cve_id($con,$cve_id);
-                $author_link = get_author_link_from_cve_id($con,$cve_id);
-                $date = get_date_from_cve_id($con,$cve_id);
-                $news_source = get_news_source_from_cve_id($con,$cve_id);
-                $news_body = get_news_body_from_cve_id($con,$cve_id);
-                $news_tag = get_news_tag_from_cve_id($con,$cve_id);
+                $cve_link = get_cve_link_from_cve_id($con,$cve_id);
+                $product_name = get_product_name_from_cve_id($con,$cve_id);
+                $published_date = get_published_date_from_cve_id($con,$cve_id);
+                $lastModified_date = get_lastModified_date_from_cve_id($con,$cve_id);
+                $score = get_score_from_cve_id($con,$cve_id);
+                $description = get_des_from_cve_id($con,$cve_id);
 
                 ?>
                 <table class="show_news" style="border:3px #cccccc solid;" cellpadding="10" border='1'>
                     <tr>
-                        <td>Title</td>
-                        <td><?php echo $title?></td>
+                        <td>CVE_ID</td>
+                        <td><?php echo $cve_id?></td>
                     </tr>
                     <tr>
-                        <td>新聞連結</td>
-                        <td><a href="<?php echo $news_link?>">點此前往</a></td>
-                    </tr>
-                    <tr>
-                        <td>作者</td>
-                        <td><?php echo $author_name?></td>
-                    </tr>
-                    <tr>
-                        <td>作者連結</td>
-                        <td><?php echo $author_link?></td>
+                        <td>CVE_detail連結</td>
+                        <td><a href="<?php echo $cve_link?>">點此前往</a></td>
                     </tr>
                     <tr>
                         <td>發布日期</td>
-                        <td><?php echo $date?></td>
+                        <td><?php echo $published_date?></td>
                     </tr>
                     <tr>
-                        <td>新聞來源</td>
-                        <td><?php echo $news_source?></td>
+                        <td>最後修改日期</td>
+                        <td><?php echo $lastModified_date?></td>
                     </tr>
                     <tr>
-                        <td>內文</td>
-                        <td><?php echo $news_body?></td>
+                        <td>CVSS分數</td>
+                        <td><?php echo $score?></td>
                     </tr>
                     <tr>
-                        <td>標籤</td>
+                        <td>漏洞描述</td>
+                        <td><?php echo $description?></td>
+                    </tr>
+                    <tr>
+                        <td>影響產品</td>
                         <td>
-                        <?php 
-                            //Show the tags
-                            //$rs[0] is the tag name
-                            //$rs[1] is the tag link
-                            for($i=1;$i<=mysqli_num_rows($news_tag);$i++){
-                            $rs=mysqli_fetch_row($news_tag);?>
-                            <a href="<?php echo $rs[1] ?>"><?php echo $rs[0]?> </a><br>
-                            <?php
-                            }
-                            ?>
+                            <table class="show_product" style="border:3px #cccccc solid;" cellpadding="10" border='1'>
+                                <tr>
+                                    <td>#</td>
+                                    <td>product name</td>
+                                    <td>vendor name</td>
+                                    <td>product version</td>
+                                </tr>
+                                
+                                <?php 
+                                    //Show the products
+                                    //$rs[0] is the product name
+                                    for($i=1;$i<=mysqli_num_rows($product_name);$i++){
+                                        ?><tr><?php
+                                        $rs=mysqli_fetch_row($product_name);?>
+                                        <td>
+                                            <a><?php echo $i?> </a>
+                                        </td>
+                                        <td>
+                                            <a><?php echo $rs[0]?> </a>
+                                        </td>
+                                        <td>
+                                            <a><?php echo get_vendor_name_from_vendor_id($con,$rs[2])?> </a>
+                                        </td>
+                                        <td>
+                                            <a><?php echo $rs[1]?> </a>
+                                        </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                            </table>
+                        
                         </td>
                     </tr>
                 </table>

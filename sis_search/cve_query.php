@@ -23,7 +23,7 @@
         $result = mysqli_query($con
         ,"select product_name,product_ver,vendor_id from cve_product
             where product_id in
-                (select product_id from cve_to_product where cve_id=$cve_id)");
+                (select product_id from cve_to_product where cve_id='$cve_id')");
         return $result; 
     }
 //-----------------------date------------------------------------

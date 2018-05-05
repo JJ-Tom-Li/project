@@ -45,10 +45,10 @@
                 $data = search_by_author($con,$author_input);
             }
             else if($body_input!=""){
-                echo "以下是 內文搜尋 \"$body_input\" 的搜尋結果:";
-                $data = search_by_body_tag($con,$body_input);
+                echo "以下是 內文關鍵字搜尋 \"$body_input\" 的搜尋結果:";
+                //$data = search_by_body_tag($con,$body_input);
                 //$data = search_by_body_full_text($con,$body_input);
-                //$data = search_by_body_keyword($con,$body_input);
+                $data = search_by_body_keyword($con,$body_input);
             }
             else if($source_input!=""){
                 echo "以下是 新聞來源搜尋 \"$source_input\" 的搜尋結果:";

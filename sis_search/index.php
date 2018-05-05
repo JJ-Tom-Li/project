@@ -22,7 +22,7 @@
                 <input type="submit" value="查詢"/><br>
             </form>
             <form method="get" action="search_result.php">
-                利用內文查詢:<input type="text" name="search_by_body_input">
+                利用內文關鍵字查詢:<input type="text" name="search_by_body_input">
                 <input type="submit" value="查詢"/><br>
             </form>
             <form method="get" action="search_result.php">

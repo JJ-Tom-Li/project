@@ -59,6 +59,8 @@ def get_last_keyword_id(cursor):
     return int(result[0])
 def news_keyword(database_name,number_of_keywords_per_news):
     #Get the username and password of database
+    username=""
+    password=""
     username = input("Please enter local database Username:")
     password = getpass.getpass("Local database Password:")
     #Try to connect to the database
@@ -130,6 +132,11 @@ def news_keyword(database_name,number_of_keywords_per_news):
                 keywordid_count = keywordid_count + 1
                 keywordid = keywordid_count
 
+                if len(word[0])>100:
+                    try:
+                        word[0]=word[0][100:]
+                    except:
+                        word[0]=""
                 sql = "Insert into news_keyword(keyword_id,keyword_name) values(%s,%s)"
                 cursor.execute(sql,(keywordid,word[0]))
 

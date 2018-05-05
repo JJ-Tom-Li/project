@@ -1,6 +1,5 @@
 import nltk
 import re
-import tkinter
 import os
 import sys
 from nltk.tokenize import word_tokenize,sent_tokenize,RegexpTokenizer

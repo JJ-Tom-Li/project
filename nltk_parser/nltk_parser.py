@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from nltk_parser_modules import *
 from unicodedata import normalize
 from math import log
@@ -6,7 +7,7 @@ class NLTK_parser:
 	def __init__(self):
 		#stop words
 		self.stopworddic = set(stopwords.words('english'))
-		self.stopworddic.update([',','.','(',')','\'',':','\'\'','``','\'s','xa1','xa6s','xa8','r','n','b'])
+		self.stopworddic.update([',','.','(',')','\'',':','\'\'','``','\'s','xa1','xa6s','xa8','r','n','b','\\','\\\'t','% '])
 		#count the frequence
 		self.fdist = FreqDist()
 		#count the frequency of biagrams
@@ -17,6 +18,7 @@ class NLTK_parser:
 		self.adj_count = 0
 		#the tags of noun
 		self.N_tag = ['NN','NNS','NNP']
+	'''
 	def parser(self,dir,outfile,number_of_result):
 		self.__init__()
 		file_number = 1		#計算分析到第幾個檔案
@@ -62,7 +64,7 @@ class NLTK_parser:
 			toker = RegexpTokenizer(r'\w+')
 			#分段切字
 			for paragraph in paragraphs:
-				sentence.extend(toker.tokenize(paragraph))
+				sentence.extend(word_tokenize(paragraph))
 
 			#delete stop words
 			sentence = [i for i in sentence if i not in self.stopworddic ]
@@ -92,7 +94,7 @@ class NLTK_parser:
 			#輸出至螢幕
 			stream.write("\t"+word[0]+" : "+str(word[1])+"\n")
 		stream.write("\n")
-				
+	'''			
 	def show_tag_of_words(self,tag):
 		word = pos_tag(self.fdist.copy())
 		for show_word in word:
@@ -109,14 +111,18 @@ class NLTK_parser:
 		#讀入檔案
 		SampleTXT = str(self.remove_non_ascii(text))
 		#去掉\r\n\r\n
-		paragraphs = [p.lower() for p in SampleTXT.split('\\r\\n\\r\\n') if p]
+		paragraphs = [p.lower() for p in SampleTXT.replace('\\r\\n\\r\\n','\\n\\n').split('\\n\\n') if p]
 		#斷字
 		sentence=[]
 		#用regular expression 斷字
 		toker = RegexpTokenizer(r'\w+')
 		#分段切字
 		for paragraph in paragraphs:
-			sentence.extend(toker.tokenize(paragraph))
+			sentence.extend(word_tokenize(paragraph))
+
+		#delete stop words
+		sentence = [i for i in sentence if i not in self.stopworddic ]
+
 		#tag the words
 		#sentence = pos_tag(sentence)
 		#text_word_token.append(sentence)
@@ -146,8 +152,7 @@ class NLTK_parser:
 				fdist[word[0].lower()]=self.tf(sentence,word[0])*self.idf(all_text_word_token,word[0])
 
 		tmpf = fdist.most_common(number_of_result)
-		for i in tmpf:
-			print(i[0],":",i[1])
+		return tmpf
 	def idf(self,all_text_word_token,word):
 		count = 0
 		for text_token in all_text_word_token:

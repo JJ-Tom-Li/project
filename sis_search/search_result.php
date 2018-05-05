@@ -17,6 +17,8 @@
             $source_input="";
             $cve_vendor_input="";
             $result_is_news=TRUE;
+            $sotr_by="";
+            $cend="";
             if (isset($_GET['search_by_title_input']))
                 $title_input = $_GET['search_by_title_input'];
             if (isset($_GET['search_by_author_input']))
@@ -27,6 +29,10 @@
                 $source_input = $_GET['search_by_source_input'];
             if(isset($_GET['cve_search_by_vendor_input']))
                 $cve_vendor_input = $_GET['cve_search_by_vendor_input'];
+            if(isset($_GET['sort_by']))
+                $sort_by = $_GET['sort_by'];
+            if(isset($_GET['cend']))
+                $cend = $_GET['cend'];
             //Record the search start time,TRUE means the function will return float value;
             $search_start_time = microtime(TRUE);
 
@@ -52,7 +58,8 @@
                 //表示結果須以CVE格式顯示
                 $result_is_news=FALSE;
                 echo "以下是 利用產品廠商查詢CVE \"$cve_vendor_input\" 的搜尋結果:";
-                $data = cve_search_by_vendor($con,$cve_vendor_input);
+                //cve_search_by_vendor($con,[vendor_name],[sort by(cve_id or score or date)],[desc or asc])
+                $data = cve_search_by_vendor($con,$cve_vendor_input,$sort_by,$cend);
             }
             else{
                 $data = FALSE;

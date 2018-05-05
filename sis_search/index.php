@@ -8,23 +8,6 @@
         $data = mysqli_query($con,"select * from news_header limit 60");
 
         ?>
-        <script language="javascript">
-            function search_by_title() {
-                alert("123");
-            }
-
-            function search_by_author(input) {
-
-            }
-
-            function search_by_source(input) {
-
-            }
-
-            function search_by_body(input) {
-
-            }
-
         </script>
     </head>
     <body>
@@ -48,6 +31,16 @@
             </form>
             <form method="get" action="search_result.php">
                 利用產品廠牌查詢CVE:<input type="text" name="cve_search_by_vendor_input">
+                排序依照:
+                <select name="sort_by">
+                　<option value="CVE_id">CVEID</option>
+                　<option value="PublishedDate">發布日期</option>
+                　<option value="Score">分數</option>
+                </select>
+                <select name="cend">
+                　<option value="desc">從高到低</option>
+                　<option value="asc">從低到高</option>
+                </select>
                 <input type="submit" value="查詢"/><br>
             </form>
         </div>

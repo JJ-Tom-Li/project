@@ -3,7 +3,7 @@
         <?php
         include_once("news_query.php");
         
-        $con = mysqli_connect("140.120.15.148","dmlabcollege","Dmlab702b$");
+        $con = mysqli_connect("localhost","dmlabcollege","Dmlab702b$");
         mysqli_select_db($con,"sis");
         $data = mysqli_query($con,"select * from news_header limit 60");
 

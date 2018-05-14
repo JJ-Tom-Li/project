@@ -5,8 +5,7 @@
         include_once("news_search.php");
         include_once("cve_query.php");
         include_once("cve_search.php");
-        $con = mysqli_connect("localhost","root","root");
-        mysqli_select_db($con,"sis");
+        include_once("database_account.php");
         ?>
     </head>
     <body>
@@ -46,9 +45,10 @@
             }
             else if($body_input!=""){
                 echo "以下是 內文關鍵字搜尋 \"$body_input\" 的搜尋結果:";
+                
+                $data = search_by_body_keyword($con,$body_input);
                 //$data = search_by_body_tag($con,$body_input);
                 //$data = search_by_body_full_text($con,$body_input);
-                $data = search_by_body_keyword($con,$body_input);
             }
             else if($source_input!=""){
                 echo "以下是 新聞來源搜尋 \"$source_input\" 的搜尋結果:";
@@ -59,7 +59,7 @@
                 $result_is_news=FALSE;
                 echo "以下是 利用產品廠商查詢CVE \"$cve_vendor_input\" 的搜尋結果:";
                 //cve_search_by_vendor($con,[vendor_name],[sort by(cve_id or score or date)],[desc or asc])
-                $data = cve_search_by_vendor($con,$cve_vendor_input,$sort_by,$cend);
+                //$data = cve_search_by_vendor($con,$cve_vendor_input,$sort_by,$cend);
             }
             else{
                 $data = FALSE;

@@ -3,9 +3,7 @@
         <?php
             //Include functions.
             include_once("news_query.php");
-            //Link to database.
-            $con = mysqli_connect("localhost","root","root");
-            mysqli_select_db($con,"sis");
+            include_once("database_account.php");
 
             function show_news($con,$news_id){
                 $title = get_title_from_news_id($con,$news_id);

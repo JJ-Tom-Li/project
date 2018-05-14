@@ -3,9 +3,7 @@
         <?php
             //Include functions.
             include_once("cve_query.php");
-            //Link to database.
-            $con = mysqli_connect("localhost","root","root");
-            mysqli_select_db($con,"sis");
+            include_once("database_account.php");
 
             function show_news($con,$cve_id){
                 $cve_link = get_cve_link_from_cve_id($con,$cve_id);
